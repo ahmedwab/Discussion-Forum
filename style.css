@@ -1,0 +1,47 @@
+body{
+  background: linear-gradient(90deg, #21D4FD 0%, #92FE9D 100%);
+}
+
+.container{
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 5%;
+  width:50%;
+  border: 5px solid white;
+}
+#submit{
+background: linear-gradient(80deg, #00C9FF 0%, #92FE9D 100%);
+border:none;
+margin-top: 5%;
+display:block;
+width:100%;
+font-size: 20px;;
+}
+#submit:active{
+background: linear-gradient(10deg, #00C9FF 0%, #92FE9D 100%);
+
+}
+.form-control{
+  background-color: whitesmoke;
+  border: none;
+  font-size: 20px;;
+  margin-top: 1%;
+  border-radius: 0px;
+}
+#login-txt{
+  color:gainsboro;
+}
+#sign-up{
+  visibility:hidden;
+  position:fixed;
+  margin-top: -33%;
+  margin-left: 25%;
+  align: center;
+}
+
+#click-here{
+  color: lightgray;
+}
+#click-here:active{
+  color: gray;
+}

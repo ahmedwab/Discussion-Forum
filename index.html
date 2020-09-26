@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login Form</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--  Include the CSS Bootstrap library from a CDN (MaxCDN) by inserting the following line
+ -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+
+</head>
+<body>
+  <div class="container" id="sign-in">
+    <br>
+    <h2 align="center" id="login-txt">Sign in</h2>
+    <form method="post" action="welcome-login.php">
+      <br>
+      <div class="form-group">
+        <input type="text" class="form-control" id="username" placeholder="username" name="username">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" id="password" placeholder="Password" name="password" >
+      </div>
+
+      <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+      <br>
+      <h6 onclick="change_form()"id="click-here"> Don't have an account? click here</h5>
+
+    </form>
+    <br>
+
+  </div>
+
+
+<div class="container" id="sign-up">
+  <br>
+  <h2 align="center" id="login-txt">Sign up</h2>
+  <form method="post" action="welcome-registration.php">
+    <br>
+    <div class="form-group">
+      <input type="text" class="form-control" id="firstname" placeholder="First Name" name="firstname">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" id="lastname" placeholder="Last Name" name="lastname">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" id="email" placeholder="Email" name="email">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" id="username" placeholder="Username" name="username">
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" id="password" placeholder="Password" name="password" >
+    </div>
+
+    <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+    <br>
+    <h6 onclick="change_form2()"id="click-here"> Already have an account? click here</h5>
+
+  </form>
+  <br>
+
+</div>
+
+</body>
+</html>

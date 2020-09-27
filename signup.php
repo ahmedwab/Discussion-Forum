@@ -1,37 +1,44 @@
 <?php
-$servername = "sql9.freemysqlhosting.net";
-$username = "sql9367403";
-$password = "SS5Hr8L81X";
-$databaseName = "sql9367403";
+session_start();
+$servername = "localhost";
+$username = "id14970710_admin";
+$password = "M3e>ah-cdPUz?ByK";
+$databaseName = "id14970710_discussionforum";
 
 $conn = new mysqli($servername,$username,$password,$databaseName);
-session_start();
- $accountusername= $accountpassword = '';
 
- $userid=$_SESSION["id"];
- if (  $userid=NULL) {
-   header('Location: index.php');
-   }
 
- if(isset($_POST['submit-register']))
-{
-    $accountfirstname = $_POST['register-firstname'];
-    $accountlastname = $_POST['register-lastname'];
-    $accountpassword = $_POST['register-password'];
-    $accountuser = $_POST['register-username'];
-    $accountemail = $_POST['register-email'];
+ $accountfirstname = $accountlastname = $accountuser = $accountemail = $accountpassword = '';
+
+ $accountfirstname=$_POST['register-firstname'];
+ $accountlasttname=$_POST['register-lastname'];
+ $accountemail=$_POST['register-email'];
+ $accountusername=$_POST['register-username'];
+ $accountpassword=$_POST['register-password'];
+
+
+
+
+
 
     $sql = "INSERT INTO ACCOUNTS (firstname, lastname, username,email,password)
-    VALUES ('$accountfirstname', '$accountlastname', '$accountuser','$accountemail','$accountpassword')";
+    VALUES ('$accountfirstname', '$accountlasttname', '$accountusername,'$accountemail','$accountpassword')";
 
-
-
-
-
-
-
-
+    if ($conn->query($sql) === TRUE) {
+  echo "New record created successfully";
+  } else {
+  echo "<script> document.getElementById('taken-text').style.visibility = 'visible';</script>";
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

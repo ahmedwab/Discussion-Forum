@@ -11,16 +11,63 @@ $accountusername= $accountpassword = '';
 
 $accountusername = $_SESSION["user"];
 
-$sql = "SELECT * FROM POSTS";
 
-if (mysqli_num_rows($result) > 0) {
+echo "<h3 id='heading'>Discussion Forum</h3>
+<form name='sign-out' action='destroy.php' method='post'>
+  <input type='submit' id='sign-out' name='sign-out' value='sign-out'>
+</form><br><br>";
+
+
+$postusername=$accountusername;
+$posttext=$_POST['textbox'];
+
+if($posttext!=''){
+$sql = "INSERT INTO MESSAGES (username, textbox)
+VALUES ( '$postusername', '$posttext')";
+
+if ($conn->query($sql) === TRUE) {
+  echo "New record created successfully";
+} else {
+  echo "Error: " . $sql . "<br>" . $conn->error;
+}
+}
+
+
+$sql = "SELECT * FROM MESSAGES ORDER BY DATE DESC";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
   // output data of each row
-  while($row = mysqli_fetch_assoc($result)) {
-    echo "id: " . $row["postID"]. " - Name: " . $row["username"]. " " . $row["textbox"]. "<br>";
+  echo "<div id='message-board'>";
+
+  while($row = $result->fetch_assoc()) {
+    echo "<div class='message'>";
+    echo  "<h6 class='message-user'>" . $row['username'] . " said </h6>";
+    echo  "<h6 class='message-date' >" .  $row['date'] . "</h6><br>";
+    echo  "<h6 class='message-text' >" .  $row['textbox'] . "</h6>";
+
+
+  echo "</div>";
+
   }
+  echo "</div>";
 } else {
   echo "0 results";
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -43,7 +90,14 @@ $conn->close();
 <link rel="stylesheet" href="welcome-styles.css">
 </head>
 <body>
-  <div id= "page-header"><h3>Discussion Forum</h3></div>
+
+  <div id="message-post">
+  <form id="message-post" name="text-form" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
+    <input id="input-item" type="text" id="textbox" name="textbox" value="">
+    <input  type="submit" id="text-submit" name"text-submit" value="post">
+  </form>
+</div>
+
 
 
 </body>

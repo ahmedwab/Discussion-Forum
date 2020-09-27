@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 $servername = "localhost";
 $username = "id14970710_admin";
 $password = "M3e>ah-cdPUz?ByK";
@@ -28,6 +29,9 @@ if ($result -> num_rows > 0){
    header('Location: welcome.php');
 
  }
+else{
+  echo "wrong email and password combination";
+}
 
 
 

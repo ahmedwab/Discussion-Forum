@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 $servername = "localhost";
 $username = "id14970710_admin";
 $password = "M3e>ah-cdPUz?ByK";
@@ -22,12 +23,14 @@ $conn = new mysqli($servername,$username,$password,$databaseName);
 
 
     $sql = "INSERT INTO ACCOUNTS (firstname, lastname, username,email,password)
-    VALUES ('$accountfirstname', '$accountlasttname', '$accountusername,'$accountemail','$accountpassword')";
+    VALUES ('$accountfirstname', '$accountlasttname', '$accountusername','$accountemail','$accountpassword')";
 
     if ($conn->query($sql) === TRUE) {
-  echo "New record created successfully";
+      $_SESSION["user"] = $accountusername;
+      header('Location: welcome.php');
+
   } else {
-  echo "<script> document.getElementById('taken-text').style.visibility = 'visible';</script>";
+  echo "Username is already taken";
 }
 
 

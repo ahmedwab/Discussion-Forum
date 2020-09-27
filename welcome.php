@@ -27,7 +27,7 @@ $sql = "INSERT INTO MESSAGES (username, textbox)
 VALUES ( '$postusername', '$posttext')";
 
 if ($conn->query($sql) === TRUE) {
-  echo "New record created successfully";
+  echo "";
 } else {
   echo "Error: " . $sql . "<br>" . $conn->error;
 }

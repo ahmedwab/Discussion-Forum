@@ -14,7 +14,7 @@ body{
   position: fixed;
 }
 
-#invalid-text{
+#invalid-text, #taken-text{
   color: red;
   text-align: center;
   visibility: hidden;
@@ -41,16 +41,12 @@ background: linear-gradient(10deg, #00C9FF 0%, #92FE9D 100%);
 #login-txt{
   color:white;
 }
-#sign-up{
 
-  visibility:hidden;
 
-}
-
-#click-here{
+.click-here{
   color: white;
 }
-#click-here:hover{
+.click-here:hover{
   color: gray;
   cursor: pointer;
 }

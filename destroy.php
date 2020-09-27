@@ -1,6 +1,6 @@
 <?php
   session_start();
-  $_SESSION["id"]=NULL;
+  $_SESSION["user"]=NULL;
   header('Location: index.php');
 
 

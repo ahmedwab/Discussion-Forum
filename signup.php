@@ -9,7 +9,6 @@ $databaseName = "id14970710_discussionforum";
 $conn = new mysqli($servername,$username,$password,$databaseName);
 
 
- $accountfirstname = $accountlastname = $accountuser = $accountemail = $accountpassword = '';
 
  $accountfirstname=$_POST['register-firstname'];
  $accountlasttname=$_POST['register-lastname'];
@@ -20,17 +19,18 @@ $conn = new mysqli($servername,$username,$password,$databaseName);
 
 
 
-
+if($accountusername!=''){
 
     $sql = "INSERT INTO ACCOUNTS (firstname, lastname, username,email,password)
     VALUES ('$accountfirstname', '$accountlasttname', '$accountusername','$accountemail','$accountpassword')";
 
     if ($conn->query($sql) === TRUE) {
       $_SESSION["user"] = $accountusername;
-      header('Location: welcome.php');
+      header('Location: main.php');
 
   } else {
   echo "Username is already taken";
+}
 }
 
 

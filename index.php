@@ -26,7 +26,7 @@ if ($result -> num_rows > 0){
      $_SESSION["user"] = $accountusername;
 
    }
-   header('Location: welcome.php');
+   header('Location: main.php');
 
  }
 else{

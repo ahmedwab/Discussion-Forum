@@ -12,11 +12,12 @@ if ($_SESSION["user"] == NULL)
 {
    header('Location: index.php');
 }
-
+$userprofile=$_SESSION["user"];
 
 echo" <div id='topnav'>
         <a href='main.php'>Discussion Forum</a>
         <div id='topnav-right'>
+          <a href='profile.php?user=$userprofile'><img src='images/profile-icon.png' alt='My profile'</a>
           <a href='destroy.php'>Sign Out</a>
         </div>
       </div>
@@ -46,8 +47,10 @@ if ($conn->query($sql) === TRUE) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
           $topicid=$row["topic_id"];
+          $topictitle=$row["topic_title"];
+
           echo "<div class='topic-item'> ";
-          echo "<a href='topic.php?topicid=$topicid'> " . $row["topic_title"] ."</a>";
+          echo "<a href='topic.php?topicid=$topicid&topicname=$topictitle'> " . $row["topic_title"] ."</a>";
           echo "</div> ";
         }
       } else {

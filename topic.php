@@ -12,27 +12,30 @@ if ($_SESSION["user"] == NULL)
 {
    header('Location: index.php');
 }
+$accountusername= $accountpassword = '';
+$accountusername = $_SESSION["user"];
+
 
 echo" <div id='topnav'>
         <a href='main.php'>Discussion Forum</a>
         <div id='topnav-right'>
+        <a href='profile.php?user=$accountusername'><img src='images/profile-icon.png' alt='My profile'</a>
           <a href='destroy.php'>Sign Out</a>
         </div>
       </div>";
 
 
-$accountusername= $accountpassword = '';
 
-$accountusername = $_SESSION["user"];
 
 
 $postusername=$accountusername;
 $posttext=$_POST['textbox'];
 $topicid=$_GET['topicid'];
+$topicname=$_GET['topicname'];
 
 if($posttext!=''){
-$sql = "INSERT INTO TOPIC (username, textbox,tid)
-VALUES ( '$postusername', '$posttext','$topicid')";
+$sql = "INSERT INTO TOPIC (username, textbox,tid,ttitle)
+VALUES ( '$postusername', '$posttext','$topicid','$topicname')";
 
 
 if ($conn->query($sql) === TRUE) {
@@ -70,7 +73,7 @@ if ($result->num_rows > 0) {
 
 }
 echo"<div id='message-post'>
-      <form id='message-post' name='text-form' action='topic.php?topicid=$topicid' method='post'>
+      <form id='message-post' name='text-form' action='topic.php?topicid=$topicid&topicname=$topicname' method='post'>
         <input id='input-item' type='text' id='textbox' name='textbox' value=''>
         <input  type='submit' id='text-submit' name='text-submit' value='post'>
       </form>

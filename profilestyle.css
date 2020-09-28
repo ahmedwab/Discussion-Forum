@@ -1,11 +1,7 @@
-body{
-  background-color:white;
-}
 #topnav {
   background-color:#00BFFF;
   color:white;
-  overflow: hidden;
-  margin-bottom: 1%;
+    overflow: hidden;
 }
 
 #topnav a {

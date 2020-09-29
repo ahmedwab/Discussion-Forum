@@ -30,21 +30,12 @@ echo" <div id='topnav'>
 
 $postusername=$accountusername;
 $posttext=$_POST['textbox'];
+$postimage=$_POST['input-image'];
 $topicid=$_GET['topicid'];
 $topicname=$_GET['topicname'];
 
-if($posttext!=''){
-$sql = "INSERT INTO TOPIC (username, textbox,tid,ttitle)
-VALUES ( '$postusername', '$posttext','$topicid','$topicname')";
 
 
-if ($conn->query($sql) === TRUE) {
-  echo "";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
-
-}
 
 
 
@@ -58,8 +49,12 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
     echo "<div class='message'>";
     $postuser=$row['username'];
+    $postimage=$row['topicimage'];
     echo  "<a href='profile.php?user=$postuser'><h6 class='message-user'>" . $row['username'] . "  </a>said</h6>";
     echo  "<h6 class='message-date' >" .  $row['date'] . "</h6><br>";
+    if(!empty($postimage)){
+    echo '<img src="data:image/jpeg;base64,'.base64_encode( $postimage).'"/>';
+    }
     echo  "<h6 class='message-text' >" .  $row['textbox'] . "</h6>";
 
 
@@ -73,8 +68,10 @@ if ($result->num_rows > 0) {
 
 }
 echo"<div id='message-post'>
-      <form id='message-post' name='text-form' action='topic.php?topicid=$topicid&topicname=$topicname' method='post'>
+      <form id='message-post' name='text-form' action='posttopic-redirect.php?topicid=$topicid&topicname=$topicname' method='post'>
         <input id='input-item' type='text' id='textbox' name='textbox' value=''>
+        <label for='img'>Upload photo (optional)</label><br><br>
+        <input type='file' id='input-image' name='input-image' accept='image/*' value='Choose Image'>
         <input  type='submit' id='text-submit' name='text-submit' value='post'>
       </form>
     </div>";
@@ -91,7 +88,7 @@ $conn->close();
 <!--  Include the CSS Bootstrap library from a CDN (MaxCDN) by inserting the following line
  -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="topic-style.css">
+<link rel="stylesheet" href="stylesheets/topic-style.css">
 </head>
 <body>
 

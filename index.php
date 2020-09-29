@@ -17,7 +17,7 @@ $conn = new mysqli($servername,$username,$password,$databaseName);
  $accountpassword=$_POST['login-password'];
 
 
- $sql = "SELECT username,password FROM ACCOUNTS WHERE username='$accountusername' AND PASSWORD='$accountpassword' LIMIT 1" ;
+ $sql = "SELECT lower(username),password FROM ACCOUNTS WHERE username='$accountusername' AND PASSWORD=MD5('$accountpassword') LIMIT 1" ;
  $result = $conn->query($sql);
 
 
@@ -30,7 +30,8 @@ if ($result -> num_rows > 0){
 
  }
 else{
-  echo "wrong email and password combination";
+  echo "<script> alert('Invalid Username and Password combination')</script>";
+
 }
 
 
@@ -49,12 +50,13 @@ else{
 <!--  Include the CSS Bootstrap library from a CDN (MaxCDN) by inserting the following line
  -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="stylesheets/login-signup-styles.css">
 <script src="script.js"></script>
 
 </head>
 <body>
   <div class="container" id="sign-in">
+    <div>
     <br>
     <h2 align="center" id="login-txt">Sign in</h2>
     <form name="login-form" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
@@ -73,8 +75,10 @@ else{
 
     </form>
     <br>
+  </div>
 
   </div>
+
 
 
 

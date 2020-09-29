@@ -30,15 +30,7 @@ echo " <div id='topic-list'>";
 
 // adding topics
 
-$topictitle=$_POST['topicname'];
-$sql = "INSERT INTO TOPICLIST (topic_title)
-VALUES ('$topictitle')";
 
-if ($conn->query($sql) === TRUE) {
-  echo "";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
 
       $sql = "SELECT * FROM TOPICLIST ORDER BY last_date DESC";
       $result = $conn->query($sql);
@@ -68,11 +60,11 @@ $conn->close();
 <head>
   <title>Forums</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="topiclist-style.css">
+  <link rel="stylesheet" href="stylesheets/topiclist-style.css">
 </head>
 <body>
   <div id="topic-post">
-  <form id="topic-post" name="topic-form" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
+  <form id="topic-post" name="topic-form" action="newtopic-redirect.php" method="post">
     <input  type="text" id="topicname" name="topicname" value="">
     <input  type="submit" id="text-submit" name"text-submit" value="Add Topic">
   </form>

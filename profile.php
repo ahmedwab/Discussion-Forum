@@ -25,12 +25,29 @@ echo" <div id='topnav'>
 
 echo "<script type='text/javascript'>" . "document.title = '$profileuser';" . "</script>";
 
-$sql = "SELECT firstname,lastname,username,email FROM ACCOUNTS   WHERE username=  '$profileuser'  LIMIT 1";
+$sql = "SELECT image FROM DEFAULT_IMAGES   WHERE image_id=  '1'  ";
+$result = $conn->query($sql);
+
+
+$defaultimage=NULL;
+while($row = $result->fetch_assoc()) {
+  $defaultimage=$row['image'];
+}
+
+
+$sql = "SELECT image,firstname,lastname,username,email FROM ACCOUNTS   WHERE username=  '$profileuser'  LIMIT 1";
 $result = $conn->query($sql);
 
 while($row = $result->fetch_assoc()) {
-  echo "Name: " . $row['firstname'] ." ". $row['lastname'] ."<br>";
-  echo "Email: " . $row['email'] ."<br>";
+  $userimage=$row['image'];
+  if($row['image']==NULL){
+    $userimage=$defaultimage;
+  }
+  echo '<div id="image-section">
+  <img src="data:image/jpeg;base64,'.base64_encode($userimage ).'" height="200" width="200" class="img-thumbnail" />';
+  echo "<h2> " . $row['firstname'] ." ". $row['lastname'] ."</h2>";
+  echo "</div><br>";
+
 
 
 }
@@ -41,6 +58,8 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
   // output data of each row
   echo "<div id='message-board'>";
+
+  $accountusername = $_SESSION["user"];
 
   while($row = $result->fetch_assoc()) {
     echo "<div class='message'>";
@@ -71,7 +90,7 @@ $conn->close();
 <head>
   <title>Profile</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="profilestyle.css">
+  <link rel="stylesheet" href="stylesheets/profilestyle.css">
 </head>
 <body>
 

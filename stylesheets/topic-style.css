@@ -1,0 +1,67 @@
+body{
+  background-color:white;
+}
+#topnav {
+  background-color:#00BFFF;
+  color:white;
+  overflow: hidden;
+  margin-bottom: 1%;
+}
+
+#topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+
+#topnav a:hover {
+  color: navy;
+  color: black;
+}
+
+#topnav-right {
+  float: right;
+}
+.message{
+  background-color: 	 #f5f5f0;
+  border-radius: 1%;
+  margin-bottom: 2%;
+  width:99%;
+  height:100px;
+}
+#message-post{
+    position: fixed;
+     background-color:rgba(255,255,255,0.5);
+     border-bottom: 2px solid #eaeaea;
+     display: flex;
+     align-items: center;
+     width: 100%;
+     bottom: 0;
+     z-index: 9994;
+     height: 80px;
+     /* MAGIC HAPPENS HERE */
+     transform: translateZ(0);
+     -webkit-transform: translateZ(0);
+ }
+#input-item{
+  width:100%;
+}
+#text-submit{
+  height:50px;
+  float: left;
+}
+.message-user{
+  float: left;
+}
+.message-date{
+  float: right;
+}
+.message-text{
+  margin-left:-5%;
+  float: left;
+  color:black;
+}

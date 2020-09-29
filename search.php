@@ -11,9 +11,12 @@ if ($_SESSION["user"] == NULL)
 {
    header('Location: index.php');
 }
+$accountusername = $_SESSION["user"];
+
 echo" <div id='topnav'>
         <a href='main.php'>Discussion Forum</a>
         <div id='topnav-right'>
+          <a href='profile.php?user=$accountusername'><img src='images/profile-icon.png' alt='My profile'</a>
           <a href='destroy.php'>Sign Out</a>
         </div>
       </div>
@@ -29,21 +32,24 @@ echo" <div id='topnav'>
 
       // adding topics
 
-      $topictitle=$_POST['topicsearch'];
+      $searchitem=$_POST['topicsearch'];
 
 
 
 
 
-            $sql = "SELECT * FROM TOPICLIST  WHERE topic_title LIKE '$topictitle' ORDER BY last_date DESC";
+            $sql = "SELECT * FROM TOPICLIST  WHERE topic_title LIKE '$searchitem' ORDER BY last_date DESC
+            UNION SELECT username FROM ACCCOUNTS  WHERE username LIKE '$searchitem'";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
               // output data of each row
               while($row = $result->fetch_assoc()) {
                 $topicid=$row["topic_id"];
+                $searchuser=$row["username"];
                 echo "<div class='topic-item'> ";
                 echo "<a href='topic.php?topicid=$topicid'> " . $row["topic_title"] ."</a>";
+                echo "<a href='profile.php?user=$searchuser'> " . $searchuser."</a>";
                 echo "</div> ";
               }
             } else {
@@ -63,7 +69,7 @@ $conn->close();
 <head>
   <title>Search Results</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="topiclist-style.css">
+  <link rel="stylesheet" href="stylesheets/topiclist-style.css">
 </head>
 <body>
 

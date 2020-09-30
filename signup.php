@@ -9,17 +9,14 @@ $databaseName = "id14970710_discussionforum";
 $conn = new mysqli($servername,$username,$password,$databaseName);
 
 
-$accountimage=$_POST['register-image'];
- $accountfirstname=$_POST['register-firstname'];
+  $accountimage = addslashes(file_get_contents($_FILES["register-image"]["tmp_name"]));
+$accountfirstname=$_POST['register-firstname'];
  $accountlasttname=$_POST['register-lastname'];
  $accountemail=$_POST['register-email'];
  $accountusername=$_POST['register-username'];
  $accountpassword=$_POST['register-password'];
  $accountquestion=$_POST['register-question'];
  $accountanswer=$_POST['register-answer'];
-
-
-
 
 
 
@@ -74,7 +71,7 @@ $conn->close();
 <div class="container" id="register">
   <br>
   <h2 align="center" id="login-txt">Sign up</h2>
-  <form name="register-form" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
+  <form name="register-form" method="post" enctype="multipart/form-data">
     <br>
     <h6 id="taken-text"> Username or Email is already taken </h3>
       <div class="form-group">

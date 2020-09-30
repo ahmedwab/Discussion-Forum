@@ -1,0 +1,54 @@
+
+
+#topnav {
+  background-color:#00BFFF;
+  color:white;
+    overflow: hidden;
+}
+
+#topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+
+#topnav a:hover {
+  color: navy;
+  color: black;
+}
+
+#topnav-right {
+  float: right;
+}
+#profileimage{
+  border-radius: 50%;
+  height: 200px;
+  width:200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#userpost{
+  margin-bottom: 5%;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+.postimg{
+  height:200px;
+  width:200px;
+}
+@media only screen and (max-width: 1200px) {
+  #profileimage{
+
+    height: 300px;
+    width:300px;
+
+  }
+
+
+
+}

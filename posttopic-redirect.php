@@ -1,38 +1,35 @@
 <?php
 session_start();
-error_reporting(0);
 $servername = "localhost";
 $username = "id14970710_admin";
 $password = "M3e>ah-cdPUz?ByK";
 $databaseName = "id14970710_discussionforum";
 
-$conn = new mysqli($servername,$username,$password,$databaseName);
+ $connect = new mysqli($servername,$username,$password,$databaseName);
 
-if ($_SESSION["user"] == NULL)
-{
-   header('Location: index.php');
-}
-$accountusername = $_SESSION["user"];
+ if ($_SESSION["user"] == NULL)
+ {
+    header('Location: index.php');
+ }
+ $accountusername = $_SESSION["user"];
 
-$postusername=$accountusername;
-$posttext=$_POST['textbox'];
-$postimage=$_POST['input-image'];
-$topicid=$_GET['topicid'];
-$topicname=$_GET['topicname'];
+ $topicid=$_GET['topicid'];
+ $topicname=$_GET['topicname'];
+ if(isset($_POST["insert"]))
+  {
+       $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
+       $posttext=$_POST['textbox'];
+       $postusername=$accountusername;
+       $query = "INSERT INTO TOPIC (username, textbox,topicimage,tid,ttitle)
+       VALUES ( '$postusername', '$posttext','$file','$topicid','$topicname')";
 
-if($posttext!=''){
-$sql = "INSERT INTO TOPIC (username, textbox,topicimage,tid,ttitle)
-VALUES ( '$postusername', '$posttext','$postimage','$topicid','$topicname')";
+       if(mysqli_query($connect, $query))
+       {
+            echo '<script>alert("Image Inserted into Database")</script>';
+       }
+  }
 
-
-if ($conn->query($sql) === TRUE) {
-  echo "";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
-
-}
-
-header('Location: topic.php?topicid=' .$topicid .'&topicname=' . $topicname);
+exit(header('Location: main.php'));
 $conn->close();
+
 ?>

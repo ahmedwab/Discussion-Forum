@@ -21,11 +21,7 @@ echo" <div id='topnav'>
           <a href='destroy.php'>Sign Out</a>
         </div>
       </div>
-      <form action='search.php' method='post'>
-        <input id='search' type='text' name='topicsearch' placeholder='Search..'>
-        <input id='search-btn' type='submit' name='search-btn' value='&#128269;'>
-
-      </form><br>";
+      <br>";
 echo " <div id='topic-list'>";
 
 // adding topics
@@ -42,7 +38,7 @@ echo " <div id='topic-list'>";
           $topictitle=$row["topic_title"];
 
           echo "<div class='topic-item'> ";
-          echo "<a href='topic.php?topicid=$topicid&topicname=$topictitle'> " . $row["topic_title"] ."</a>";
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'> " . $row["topic_title"] ."</a>";
           echo "</div> ";
         }
       } else {
@@ -60,7 +56,7 @@ $conn->close();
 <head>
   <title>Forums</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="stylesheets/topiclist-style.css">
+  <link rel="stylesheet" href="stylesheets/topiclist-styles.css">
 </head>
 <body>
   <div id="topic-post">

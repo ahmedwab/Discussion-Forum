@@ -1,23 +1,24 @@
 body{
   background: white;
+  overflow: scroll;
 }
 
 .container{
-  background-color: white;
   border-radius: 10px;
   margin-top: 5%;
   margin-left: 25%;
+  margin-bottom: 5%;
   width:50%;
   border: 5px solid white;
   background-color: #e6e6e6;
   border: none;
-  position: fixed;
+  position: relative;
 }
 @media only screen and (max-width: 600px) {
   .container {
-    width:320px;
+    width:90%;
 
-    margin-left: 7%;
+    margin-left: 5%;
   }
 }
 
@@ -56,4 +57,7 @@ background: linear-gradient(10deg, #00C9FF 0%, #92FE9D 100%);
 .click-here:hover{
   color: gray;
   cursor: pointer;
+}
+#password-form{
+  display:none;
 }

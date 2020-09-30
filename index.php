@@ -71,14 +71,23 @@ else{
 
       <button type="submit" class="btn btn-primary" class="submit" name="submit-login">Submit</button>
       <br>
-      <a href="signup.php"><h6 onclick="change_form()"class="click-here"> Don't have an account? click here</h5></a>
+      <a href="signup.php"><h6 onclick="change_form()"class="click-here"> Don't have an account? click here</h6></a>
 
     </form>
-    <br>
   </div>
-
+    <h6 onclick="enterpassword()" class="click-here"> Forgot password? click here</h6>
+    <form name="password-form" id="password-form" action="forgotpassword.php)" method="post">
+      <input type="text" class="form-control" id="forgot-username" placeholder="username" name="login-username" required><br>
+      <button type="submit" class="btn btn-primary" class="submit" name="submit-login">Forgot Password</button><br>
+    </form>
   </div>
+<script>
 
+function enterpassword(){
+  document.getElementById('password-form').style.display="block";
+}
+
+</script>
 
 
 

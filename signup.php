@@ -21,6 +21,7 @@ $accountfirstname=$_POST['register-firstname'];
 
 
 
+
 if($accountusername!=''){
 
     $sql = "INSERT INTO ACCOUNTS (image,firstname, lastname, username,email,password,securityquestion,securityanswer)
@@ -60,7 +61,7 @@ $conn->close();
 <!--  Include the CSS Bootstrap library from a CDN (MaxCDN) by inserting the following line
  -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="stylesheets/login-signup-styles.css">
+<link rel="stylesheet" href="stylesheets/login-signup-stylesheet.css">
 <script src="script.js"></script>
 
 </head>
@@ -73,34 +74,34 @@ $conn->close();
   <h2 align="center" id="login-txt">Sign up</h2>
   <form name="register-form" method="post" enctype="multipart/form-data">
     <br>
-    <h6 id="taken-text"> Username or Email is already taken </h3>
+    <img src="images/default.png" id="profile-pic" alt="Girl in a jacket" width="200" height="200"><br>
       <div class="form-group">
         <h6> Choose a Profile Photo (optional) 16MB Max Size</h6>
-        <input type="file" id="img" name="register-image" accept="image/*">
+        <input type="file" id="img" name="register-image" accept="image/*"  onchange="document.getElementById('profile-pic').src = window.URL.createObjectURL(this.files[0])">
       </div>
     <div class="form-group">
-      <input type="text" class="form-control" id="firstname" placeholder="First Name" name="register-firstname" required>
+      <input type="text" class="form-control" id="firstname" placeholder="First Name *" name="register-firstname" required>
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" id="lastname" placeholder="Last Name " name="register-lastname" required>
+      <input type="text" class="form-control" id="lastname" placeholder="Last Name *" name="register-lastname" required>
     </div>
     <div class="form-group">
       <input type="text" class="form-control" id="email" placeholder="Email *" name="register-email" required>
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" id="username" placeholder="Username" name="register-username" required>
+      <input type="text" class="form-control" id="username" placeholder="Username *" name="register-username" required>
     </div>
     <div class="form-group">
-      <input type="password" class="form-control" id="password" placeholder="Password" name="register-password" required>
+      <input type="password" class="form-control" id="password" placeholder="Password *" name="register-password" required>
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" id="sec-ques" placeholder="Type a Security Question" name="register-question" required>
+      <input type="text" class="form-control" id="sec-ques" placeholder="Type a Security Question *" name="register-question" required>
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" id="sec-ans" placeholder="Type a Security Answer" name="register-answer" required>
+      <input type="text" class="form-control" id="sec-ans" placeholder="Type a Security Answer *" name="register-answer" required>
     </div>
 
-    <button type="submit" class="btn btn-primary" class="submit" name="submit-register">Submit</button>
+      <button type="submit" class="submit" id="submit" name="submit-login">Submit</button>
     <br>
       <a href="index.php"><h6 onclick="change_form()"class="click-here">  Already have an account? click here</h5></a>
 

@@ -10,6 +10,7 @@ $conn = new mysqli($servername,$username,$password,$databaseName);
 
  $accountusername= $accountpassword = '';
 
+
  if(isset($_POST['submit-login']))
 {
 
@@ -24,7 +25,6 @@ $conn = new mysqli($servername,$username,$password,$databaseName);
 if ($result -> num_rows > 0){
    while($row = $result->fetch_assoc()){
      $_SESSION["user"] = $accountusername;
-
    }
    header('Location: main.php');
 
@@ -50,7 +50,7 @@ else{
 <!--  Include the CSS Bootstrap library from a CDN (MaxCDN) by inserting the following line
  -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="stylesheets/login-signup-styles.css">
+<link rel="stylesheet" href="stylesheets/login-signup-stylesheet.css">
 <script src="script.js"></script>
 
 </head>
@@ -69,21 +69,22 @@ else{
         <input type="password" class="form-control" id="password" placeholder="Password" name="login-password" required>
       </div>
 
-      <button type="submit" class="btn btn-primary" class="submit" name="submit-login">Submit</button>
+      <button type="submit" class="submit" id="submit" name="submit-login">Submit</button>
       <br>
       <a href="signup.php"><h6 onclick="change_form()"class="click-here"> Don't have an account? click here</h6></a>
 
     </form>
   </div>
-    <h6 onclick="enterpassword()" class="click-here"> Forgot password? click here</h6>
-    <form name="password-form" id="password-form" action="forgotpassword.php)" method="post">
-      <input type="text" class="form-control" id="forgot-username" placeholder="username" name="login-username" required><br>
-      <button type="submit" class="btn btn-primary" class="submit" name="submit-login">Forgot Password</button><br>
+    <h6 onclick="enterpassword()" id="forgotten-password" class="click-here"> Forgot password? click here</h6>
+    <form name="password-form" id="password-form" action="forgotpassword.php" method="post">
+      <input type="text" class="form-control" id="forgot-username" placeholder="username" name="forgot-username" required>
+      <button type="submit" class="submit-pass" id="submit-pass" name="submit-pass">Submit</button>
     </form>
   </div>
 <script>
 
 function enterpassword(){
+  document.getElementById('forgotten-password').style.display="none";
   document.getElementById('password-form').style.display="block";
 }
 

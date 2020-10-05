@@ -15,14 +15,29 @@ $databaseName = "id14970710_discussionforum";
  $topicid= $_SESSION['topicid'];
  $topicname= $_SESSION['topicname'];
 
+ $query = "SELECT image FROM ACCOUNTS WHERE username='$accountusername' LIMIT 1";
+ $result = mysqli_query($connect, $query);
+
+$profileimage=NULL;
+ while($row = mysqli_fetch_array($result))
+ {
+   $profileimage=$row['image'];
+ }
+
 echo "<script> document.title='$topicname'</script>";
- echo" <div id='topnav'>
-         <a href='main.php'>Discussion Forum</a>
-         <div id='topnav-right'>
-         <a href='profile.php?user=$accountusername'><img src='images/profile-icon.png' alt='My profile'</a>
-           <a href='destroy.php'>Sign Out</a>
-         </div>
-       </div>";
+echo" <div id='topnav'>
+        <a href='main.php'>Discussion Forum</a>
+        <div id='topnav-right'>";
+        if($profileimage==NULL){
+          echo      " <a href='profile.php?user=$accountusername'>" ."<img id='profileImage' src='images/default.png'></a>";
+
+        }
+        else{
+ echo      " <a href='profile.php?user=$accountusername'>" ."<img id='profileImage' src='data:image/jpeg;base64,".base64_encode( $profileimage )."'></a>";
+}
+ echo"         <a href='destroy.php'>Sign Out</a>
+        </div>
+      </div>";
 
 
 
@@ -49,7 +64,7 @@ if(isset($_POST["insert"]))
            <title>Topic</title>
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-           <link rel="stylesheet" href="stylesheets/topic-styles.css">
+           <link rel="stylesheet" href="stylesheets/topic-style.css">
            <script src="script.js"></script>
       </head>
       <body>
@@ -62,7 +77,7 @@ if(isset($_POST["insert"]))
                  <div contentEditable="true" id="input-section">
                  <p id='imageposted'></p>
 
-                 <textarea  id='input-item' name="textbox"></textarea>
+                 <textarea  id='input-item' name="textbox" placeholder="New post..."></textarea>
 
                </div>
                <table id='upload-section'>
@@ -86,25 +101,35 @@ if(isset($_POST["insert"]))
                 <br />
                 <br />
                 <div class="posts-section">
-                     <div>
-                          <div>Posts</div>
-                     </div>
+
                 <?php
                 $topicid=$_SESSION['topicid'];
-                $query = "SELECT * FROM TOPIC WHERE tid='$topicid' ORDER BY DATE DESC ";
+                $query = "SELECT lower(username),username,textbox,topicimage,date,tid FROM TOPIC WHERE tid='$topicid' ORDER BY DATE DESC ";
                 $result = mysqli_query($connect, $query);
+
+              if($result-> num_rows>0){
                 while($row = mysqli_fetch_array($result))
                 {
                   echo "<div id='userpost'>";
+                  echo "<div class='profile-tab'>";
                   $profileuser=$row['username'];
-                    echo "<a href='profile.php?user=$profileuser'>" . $row['username'] ."</a>" . " said <br>";
+
+                    echo "<a href='profile.php?user=$profileuser'>" . '<img  src="images/default.png" width="50px" height="50px"/> '.$row['username'] ."</a>" . "<p class='post-date'>".$row['date']."</p> <br>";
+                    echo "</div><br>";
+                    echo  $row['textbox'] . '<br>';
                     if(!empty($row['topicimage'])){
                         echo '<img  class="postimg" src="data:image/jpeg;base64,'.base64_encode( $row['topicimage'] ).'"/><br>';
                     }
-                    echo  $row['textbox'] . '<br>';
+
+
 
                   echo "</div>";
                 }
+
+              }
+              else {
+                echo "Be the first person to post";
+              }
                 ?>
            </div>
       </body>

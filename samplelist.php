@@ -58,15 +58,14 @@ $conn->close();
 </head>
 <body>
 <section id="forums">
-<table >
+<table id="sports-section">
   <tr>
-    <th>Name</th>
-    <th colspan="2">Telephone</th>
+    <th colspan="3">Sports</th>
   </tr>
   <tr>
-    <td>Bill Gates</td>
-    <td>55577854</td>
-    <td>55577855</td>
+    <td>topic 1</td>
+    <td>date</td>
+    <td>posts</td>
   </tr>
 </table>
 </section>

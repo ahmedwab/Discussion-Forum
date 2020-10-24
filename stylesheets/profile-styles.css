@@ -1,9 +1,11 @@
-
-
+body{
+  background-color:white;
+}
 #topnav {
-  background-color:#00BFFF;
+  background-color:#0a192f;
   color:white;
-    overflow: hidden;
+  overflow: hidden;
+  margin-bottom: 1%;
 }
 
 #topnav a {
@@ -17,8 +19,7 @@
 
 
 #topnav a:hover {
-  color: navy;
-  color: black;
+  color: #52a39e;
 }
 
 #topnav-right {

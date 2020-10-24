@@ -50,7 +50,7 @@ else{
 <!--  Include the CSS Bootstrap library from a CDN (MaxCDN) by inserting the following line
  -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="stylesheets/login-signup-stylesheet.css">
+<link rel="stylesheet" href="stylesheets/login-signup-style.css">
 <script src="script.js"></script>
 
 </head>

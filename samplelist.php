@@ -40,35 +40,83 @@ echo "<div id='page'>";
          </div>
        </div>";
 
+       echo "<form  action='search.php' method='post' id='search-form'>
+       <input type='text' id='search-text' name='search-text' placeholder='Search...'>
+       <button type='submit' id='search-submit' name='search-submit' src='images/search.png'>
+       <img src='images/search.png' alt='Search icon'/></button>
+       </form>";
 
 
-echo " </div>";
 
 
 
 $conn->close();
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Forums</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="stylesheets/topiclist-styles.css">
+  <link rel="stylesheet" href="stylesheets/topiclist-style.css">
 </head>
 <body>
-<section id="forums">
-<table id="sports-section">
-  <tr>
-    <th colspan="3">Sports</th>
-  </tr>
-  <tr>
-    <td>topic 1</td>
-    <td>date</td>
-    <td>posts</td>
-  </tr>
-</table>
-</section>
-  
+<main>
+<div class="forums">
+<div class="thread-class">
+<div class="list-title">Sports</div>
+<div class="thread">
+    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">
+    <div class="thread-name"> A thread name</div>
+    <div class="thread-count"> 2<br>posts</div>
+</div>
+<div class="thread">
+    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">
+    <div class="thread-name"> A thread name</div>
+    <div class="thread-count"> 2<br>posts</div>
+</div>
+</div>
+</div>
+<div class="forums">
+    <div class="thread-class">
+    <div class="list-title">Economics</div>
+    <div class="thread">
+        <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">
+        <div class="thread-name"> A thread name</div>
+        <div class="thread-count"> 2<br>posts</div>
+    </div>
+    <div class="thread">
+        <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">
+        <div class="thread-name"> A thread name</div>
+        <div class="thread-count"> 2<br>posts</div>
+    </div>
+    </div>
+    </div>
+</main>
+
+<aside>
+    <div id="social-media">
+       <a href="https://www.linkedin.com/in/ahmedwab/"> <img  src="images/linkedin-icon.png" alt="discusssion"></a>
+       <a href="https://github.com/ahmedwab" ><img  src="images/github-icon.png" alt="discusssion"></a>
+    </div>
+    <image src="images/300x250.png">
+        <div class="forums">
+            <div class="thread-class">
+            <div class="list-title">New threads</div>
+            <div class="thread">
+                <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">
+                <div class="thread-right-name"> A thread name</div>
+               
+            </div>
+            <div class="thread">
+                <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">
+                <div class="thread-right-name"> A thread name</div>
+               
+            </div>
+            </div>
+            </div>
+</aside>
 </body>
 </html>

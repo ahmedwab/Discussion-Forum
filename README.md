@@ -5,8 +5,9 @@ This Website is a discussion forum where multiple users could post on different 
 ## Where?
 
 This website is available on http://www.discussionthreads.online/
-## Updates
+## Access
 
-Currently working on the messaging app where users could talk to each other
-
+You can login with these credentials to see how the website performs 
+username:user
+password:pass
 

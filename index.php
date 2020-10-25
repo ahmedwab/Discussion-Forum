@@ -6,127 +6,300 @@ $username = "ahmedwab";
 $password = "251056Cc";
 $databaseName = "discussionthreads_discussion";
 
-$conn = new mysqli($servername,$username,$password,$databaseName);
-
- $accountusername= $accountpassword = '';
+ $conn = new mysqli($servername,$username,$password,$databaseName);
 
 
- if(isset($_POST['submit-login']))
-{
+ $accountusername = $_SESSION["user"];
+ $topicid= $_SESSION['topicid'];
+ $topicname= $_SESSION['topicname'];
 
- $accountusername=$_POST['login-username'];
- $accountpassword=$_POST['login-password'];
+ $query = "SELECT image FROM ACCOUNTS WHERE username='$accountusername' LIMIT 1";
+ $result = mysqli_query($conn, $query);
 
-
- $sql = "SELECT lower(username),password FROM ACCOUNTS WHERE username='$accountusername' AND PASSWORD=MD5('$accountpassword') LIMIT 1" ;
- $result = $conn->query($sql);
-
-
-if ($result -> num_rows > 0){
-   while($row = $result->fetch_assoc()){
-     $_SESSION["user"] = $accountusername;
-   }
-   header('Location: main.php');
-
+$profileimage=NULL;
+ while($row = mysqli_fetch_array($result))
+ {
+   $profileimage=$row['image'];
  }
-else{
-  echo "<script> alert('Invalid Username and Password combination')</script>";
-
-}
-}
-$forgotusername=$_POST['forgot-username'];
-if(isset($_POST['submit-pass'])){
-$sql = "SELECT lower(username) WHERE username='$forgotusername' LIMIT 1" ;
-if ($result -> num_rows > 0){
-  header('Location: forgotpassword.php');
-}
-else{
-  echo "Username does not exist";
-}
-}
 
 
+echo "<div id='page'>";
+ echo" <div id='topnav'>
+         <a href='main.php'>Discussion Forum</a>
+         <div id='topnav-right'>";
+       
+  echo"         <a href='login.php'>Sign In| Register</a>
+         </div>
+       </div>";
 
- ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Login Form</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--  Include the CSS Bootstrap library from a CDN (MaxCDN) by inserting the following line
- -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="stylesheets/login-signup-style.css">
-<script src="script.js"></script>
-
-</head>
-<body>
-  <div class="container" id="sign-in">
-    <div>
-    <br>
-    <h2 align="center" id="login-txt">Sign in</h2>
-    <form name="login-form" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
-      <br>
-      <h6 id="invalid-text"> Username and Password combination is invalid</h3>
-      <div class="form-group">
-        <input type="text" class="form-control" id="username" placeholder="username" name="login-username" required>
-      </div>
-      <div class="form-group">
-        <input type="password" class="form-control" id="password" placeholder="Password" name="login-password" required>
-      </div>
-
-      <button type="submit" class="submit" id="submit" name="submit-login">Submit</button>
-      <br>
-      <a href="signup.php"><h6 onclick="change_form()"class="click-here"> Don't have an account? click here</h6></a>
-
-    </form>
-  </div>
+       echo "<form  action='search.php' method='post' id='search-form'>
+       <input type='text' id='search-text' name='search-text' placeholder='Search...'>
+       <button type='submit' id='search-submit' name='search-submit' src='images/search.png'>
+       <img src='images/search.png' alt='Search icon'/></button>
+       </form>";
 
 
-    <h6 onclick="enterpassword()" id="forgotten-password" class="click-here"> Forgot password? click here</h6>
-    <form name="password-form" id="password-form" action="forgotpassword.php"method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-      <input type="text" class="form-control" id="forgot-username" placeholder="username" name="forgot-username" required>
-      <button type="submit" class="submit-pass" id="submit-pass" name="submit-pass">Submit</button>
-    </form>
-  </div>
-<script>
-
-function enterpassword(){
-  document.getElementById('forgotten-password').style.display="none";
-  document.getElementById('password-form').style.display="block";
-}
-
-</script>
-
-<?php
 
 
-$sql = "SELECT COUNT(*)as count FROM ACCOUNTS " ;
-$result = $conn->query($sql);
-$row = $result->fetch_assoc();
-$count = $row[count];
 
-
-if($count>10){
-
-echo "<div id='count' align='center' style='color:white' >";
-echo "<h1> Join <br>";
-echo  number_format($count);
-echo "<br> Users </h1>";
-
-
-$conn->close();
-
-}
 ?>
 
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Forums</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="stylesheets/home-style.css">
+</head>
+<body>
+<main>
+
+  <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">Sports</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  WHERE category='sports' ORDER BY last_date DESC LIMIT 5";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+       echo' <div class="thread-count">'.$date.'</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
+    </div>
+  </div>
 
 
+  <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">Economics</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  WHERE category='economics' ORDER BY last_date DESC LIMIT 5";
+    $result = $conn->query($sql);
 
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'&date=$date'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+       echo' <div class="thread-count">'.$date.'</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
+    </div>
+  </div>
+
+  <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">Politics</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  WHERE category='politics' ORDER BY last_date DESC LIMIT 5";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'&date=$date'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+       echo' <div class="thread-count">'.$date.'</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
+    </div>
+  </div>
+
+  <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">Environment</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  WHERE category='environment' ORDER BY last_date DESC LIMIT 5";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'&date=$date'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+       echo' <div class="thread-count">'.$date.'</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
+    </div>
+  </div>
+
+  <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">Social</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  WHERE category='social' ORDER BY last_date DESC LIMIT 5";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'&date=$date'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+       echo' <div class="thread-count">'.$date.'</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
+    </div>
+  </div>
+
+  <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">Travel</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  WHERE category='travel' ORDER BY last_date DESC LIMIT 5";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'&date=$date'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+       echo' <div class="thread-count">'.$date.'</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
+    </div>
+  </div>
+
+  
+  <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">Other</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  WHERE category='other' ORDER BY last_date DESC LIMIT 5";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'&date=$date'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+       echo' <div class="thread-count">'.$date.'</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
+    </div>
+  </div>
+  
+</main>
+
+<aside>
+    <div id="social-media">
+       <a href="https://www.linkedin.com/in/ahmedwab/"> <img  src="images/linkedin-icon.png" alt="discusssion"></a>
+       <a href="https://github.com/ahmedwab" ><img  src="images/github-icon.png" alt="discusssion"></a>
+    </div>
+    <image src="images/300x250.png">
+
+    <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">New Threads</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  ORDER BY last_date DESC LIMIT 10";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-right-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'&date=$date'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
+    </div>
+  </div>
+  
+  
+</aside>
 
 </body>
 </html>

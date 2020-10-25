@@ -10,7 +10,7 @@ $conn = new mysqli($servername,$username,$password,$databaseName);
 
 if ($_SESSION["user"] == NULL)
 {
-   header('Location: index.php');
+   header('Location: login.php');
 }
 $userprofile=$_GET["user"];
 echo "<script> document.title='$userprofile'</script>";

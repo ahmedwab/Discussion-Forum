@@ -10,7 +10,7 @@ $databaseName = "discussionthreads_discussion";
 
  if ($_SESSION["user"] == NULL)
  {
-    header('Location: index.php');
+    header('Location: login.php');
  }
  $accountusername = $_SESSION["user"];
  $topicid= $_SESSION['topicid'];

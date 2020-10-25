@@ -140,6 +140,13 @@ aside{
   margin-bottom: 1%;
 }
 @media only screen and (max-width: 1200px) {
+  main{
+    width:90%;
+    
+  }
+  aside{
+    width:90%;
+  }
 
   #topnav a {
     float: left;

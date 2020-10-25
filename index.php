@@ -41,7 +41,7 @@ if ($result -> num_rows > 0){
   header('Location: forgotpassword.php');
 }
 else{
-  echo "<script> alert('Username does not exist')</script>";
+  echo "Username does not exist";
 }
 }
 

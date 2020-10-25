@@ -51,7 +51,6 @@ echo "<div id='page'>";
 
 
 
-$conn->close();
 ?>
 
 
@@ -61,40 +60,216 @@ $conn->close();
 <head>
   <title>Forums</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="stylesheets/topiclist-style.css">
+  <link rel="stylesheet" href="stylesheets/main-style.css">
 </head>
 <body>
 <main>
-<div class="forums">
-<div class="thread-class">
-<div class="list-title">Sports</div>
-<div class="thread">
-    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">
-    <div class="thread-name"> A thread name</div>
-    <div class="thread-count"> 2<br>posts</div>
-</div>
-<div class="thread">
-    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">
-    <div class="thread-name"> A thread name</div>
-    <div class="thread-count"> 2<br>posts</div>
-</div>
-</div>
-</div>
-<div class="forums">
+
+  <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">Sports</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  WHERE category='sports' ORDER BY last_date DESC LIMIT 5";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+       echo' <div class="thread-count">'.$date.'</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
+    </div>
+  </div>
+
+
+  <div class="forums">
     <div class="thread-class">
     <div class="list-title">Economics</div>
-    <div class="thread">
-        <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">
-        <div class="thread-name"> A thread name</div>
-        <div class="thread-count"> 2<br>posts</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  WHERE category='economics' ORDER BY last_date DESC LIMIT 5";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'&date=$date'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+       echo' <div class="thread-count">'.$date.'</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
     </div>
-    <div class="thread">
-        <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">
-        <div class="thread-name"> A thread name</div>
-        <div class="thread-count"> 2<br>posts</div>
+  </div>
+
+  <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">Politics</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  WHERE category='politics' ORDER BY last_date DESC LIMIT 5";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'&date=$date'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+       echo' <div class="thread-count">'.$date.'</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
     </div>
+  </div>
+
+  <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">Environment</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  WHERE category='environment' ORDER BY last_date DESC LIMIT 5";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'&date=$date'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+       echo' <div class="thread-count">'.$date.'</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
     </div>
+  </div>
+
+  <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">Social</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  WHERE category='social' ORDER BY last_date DESC LIMIT 5";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'&date=$date'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+       echo' <div class="thread-count">'.$date.'</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
     </div>
+  </div>
+
+  <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">Travel</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  WHERE category='travel' ORDER BY last_date DESC LIMIT 5";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'&date=$date'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+       echo' <div class="thread-count">'.$date.'</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
+    </div>
+  </div>
+
+  
+  <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">Other</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  WHERE category='other' ORDER BY last_date DESC LIMIT 5";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'&date=$date'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+       echo' <div class="thread-count">'.$date.'</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
+    </div>
+  </div>
+  
 </main>
 
 <aside>
@@ -103,21 +278,54 @@ $conn->close();
        <a href="https://github.com/ahmedwab" ><img  src="images/github-icon.png" alt="discusssion"></a>
     </div>
     <image src="images/300x250.png">
-        <div class="forums">
-            <div class="thread-class">
-            <div class="list-title">New threads</div>
-            <div class="thread">
-                <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">
-                <div class="thread-right-name"> A thread name</div>
-               
-            </div>
-            <div class="thread">
-                <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">
-                <div class="thread-right-name"> A thread name</div>
-               
-            </div>
-            </div>
-            </div>
+
+    <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">New Threads</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  ORDER BY last_date DESC LIMIT 10";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-right-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'&date=$date'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
+    </div>
+  </div>
+  
+    
 </aside>
+
+<div >
+  <form  name="topic-form" action="newtopic-redirect.php" method="post">
+    <input  type="text"  name="topicname" placeholder="Enter new topic name" maxlength="50" required><br>
+    <label for="cars">Choose a category:</label>
+    <select name="category"  >
+      <option value="sports">Sports</option>
+      <option value="economics">Economics</option>
+      <option value="politics">Politics</option>
+      <option value="environment">Environment</option>
+      <option value="social">Social</option>
+      <option value="travel">travel</option>
+      <option value="other">Other</option>
+
+    </select>
+    <input  type="submit"  name"text-submit"  value="Add Topic">
+  </form>
+</div>
 </body>
 </html>

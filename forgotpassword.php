@@ -10,23 +10,33 @@ $conn = new mysqli($servername,$username,$password,$databaseName);
 
  $accountusername= $_POST['forgot-username'];
 
- $sql="SELECT username FROM ACCOUNTS WHERE username='$accountusername' ";
- $result = $conn->query($sql);
- if($result -> num_rows<=0){
-    header('Location: index.php');
- }
 
-else{
- $sql="SELECT securityquestion,securityanswer FROM ACCOUNTS WHERE username='$accountusername' ";
+
+ $sql="SELECT email FROM ACCOUNTS WHERE username='$accountusername' ";
  $result = $conn->query($sql);
 
-$question=NULL;
+$email=NULL;
 $answer=NULL;
    while($row = $result->fetch_assoc()){
-     $question=$row['securityquestion'];
-     $answer=$row['securityanswer'];
+    $email=$row['email'];
 
    }
+   $to = $email;
+         $subject = "Password recovery";
+         
+         $message = "<b>This is HTML message.</b>";
+         $message .= "<h1>This is headline.</h1>";
+         
+         $header = "From:no-reply@discussionthreads.online \r\n";
+         $header .= "MIME-Version: 1.0\r\n";
+         $header .= "Content-type: text/html\r\n";
+         
+         $retval = mail ($to,$subject,$message,$header);
+         if( $retval == true ) {
+          echo "Message sent successfully...";
+       }else {
+          echo "Message could not be sent...";
+       }
 
 
 
@@ -34,31 +44,11 @@ $answer=NULL;
  <div class="container" id="sign-in">
    <div>
    <br>
-   <h2 align="center" id="login-txt">Forgot Password</h2>
-   <form name="login-form" action=" htmlentities'.($_SERVER["PHP_SELF"]); echo ' method="post">
-     <br>
-     <div class="form-group">
-      <h3 style="color:white;">'.$question.'</h3>' ;
-      echo'
-     </div>
-     <div class="form-group">
-       <input type="text" class="form-control" id="answer" placeholder="answer" name="login-password" required>
-     </div>
-     <div class="form-group">
-       <input type="password" class="form-control" id="password" placeholder="password" name="password" required>
-     </div>
-     <div class="form-group">
-       <input type="password" class="form-control" id="answer" placeholder="confirm password" name="confirm-password" required>
-     </div>
-
-     <button type="submit" class="submit" id="submit" name="submit-login">Submit</button>
-     <br>
-
-
-   </form>
- </div>
+   <h2 align="center" id="login-txt">An Email has been sent to<br>' .$email.'</h2><br>
+   <a align="center" href="index.php"><h3> Go back</h3></a><br>
+   <h6> feature is currently not working</h6>
+   
  </div>';
-}
 
 
  $conn->close();
@@ -73,7 +63,7 @@ $answer=NULL;
 <!--  Include the CSS Bootstrap library from a CDN (MaxCDN) by inserting the following line
  -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="stylesheets/login-signup-stylesheet.css">
+<link rel="stylesheet" href="stylesheets/login-signup-style.css">
 <script src="script.js"></script>
 
 </head>

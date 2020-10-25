@@ -15,8 +15,7 @@ $accountfirstname=$_POST['register-firstname'];
  $accountemail=$_POST['register-email'];
  $accountusername=$_POST['register-username'];
  $accountpassword=$_POST['register-password'];
- $accountquestion=$_POST['register-question'];
- $accountanswer=$_POST['register-answer'];
+
 
 
 
@@ -24,8 +23,8 @@ $accountfirstname=$_POST['register-firstname'];
 
 if($accountusername!=''){
 
-    $sql = "INSERT INTO ACCOUNTS (image,firstname, lastname, username,email,password,securityquestion,securityanswer)
-    VALUES ('$accountimage','$accountfirstname', '$accountlasttname', '$accountusername','$accountemail',MD5('$accountpassword'),'$accountquestion','$accountanswer')";
+    $sql = "INSERT INTO ACCOUNTS (image,firstname, lastname, username,email,password)
+    VALUES ('$accountimage','$accountfirstname', '$accountlasttname', '$accountusername','$accountemail',MD5('$accountpassword'))";
 
     if ($conn->query($sql) === TRUE) {
       $_SESSION["user"] = $accountusername;
@@ -94,12 +93,7 @@ $conn->close();
     <div class="form-group">
       <input type="password" class="form-control" id="password" placeholder="Password *" name="register-password" required>
     </div>
-    <div class="form-group">
-      <input type="text" class="form-control" id="sec-ques" placeholder="Type a Security Question *" name="register-question" required>
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control" id="sec-ans" placeholder="Type a Security Answer *" name="register-answer" required>
-    </div>
+    
 
       <button type="submit" class="submit" id="submit" name="submit-login">Submit</button>
     <br>

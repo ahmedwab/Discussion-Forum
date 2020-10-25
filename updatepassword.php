@@ -8,21 +8,12 @@ $databaseName = "discussionthreads_discussion";
 
 $conn = new mysqli($servername,$username,$password,$databaseName);
 
-$topictitle=$_POST['topicname'];
- $category=$_POST['category'];
-$sql = "INSERT INTO TOPICLIST (topic_title,category)
-VALUES ('$topictitle','$category')";
 
-if ($conn->query($sql) === TRUE) {
-  echo "";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
+$accountusername= $_POST['forgot-username'];
+$accountpassword=$_POST['password'];
+$sql="UPDATE ACCOUNTS SET password=MD5('$accountpassword') WHERE username='$accountusername'  ";
 
-
-
-
+$_SESSION["user"] = $accountusername;
 header('Location: main.php');
-
 $conn->close();
 ?>

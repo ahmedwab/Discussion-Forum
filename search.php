@@ -46,75 +46,111 @@ echo "<div id='page'>";
        <button type='submit' id='search-submit' name='search-submit' src='images/search.png'>
        <img src='images/search.png' alt='Search icon'/></button>
        </form>";
-  echo '  <button type="button" id="topic-submit" onclick="showform()">Add topic</button><br><br>';
-
-// adding topics
-echo '<script>
-  function removeform(){
-    var post=  document.getElementById("topic-post");
-    post.style.display="none";
-    document.getElementById("page").style.opacity="1";
-    post.style.opacity="0";
-      }
-  function showform(){
-    var post=  document.getElementById("topic-post");
-    post.style.display="block";
-    document.getElementById("page").style.opacity="0.5";
-    post.style.opacity="1";
-  }
-   </script>';
-
-
-    $searchitem= $_POST["search-text"];
-      $sql = "SELECT * FROM TOPICLIST WHERE topic_title LIKE '%$searchitem%'  ORDER BY last_date DESC";
-      $result = $conn->query($sql);
-
-      if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-          $topicid=$row["topic_id"];
-          $topictitle=$row["topic_title"];
-
-          echo "<div class='topic-item' style='background-color:".$row["color"].";'> ";
-          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'> " . $row["topic_title"] ."</a>";
-          echo "</div> ";
-        }
-      } else {
-        echo "0 results";
-      }
-echo " </div>";
 
 
 
-$conn->close();
+
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Forums</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="stylesheets/topiclist-styles.css">
+  <link rel="stylesheet" href="stylesheets/home-style.css">
 </head>
 <body>
+<main>
+
+  <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">Results</div>
+    <?php
+    $searchitem= $_POST["search-text"];
+    $sql = "SELECT * FROM TOPICLIST WHERE topic_title LIKE '%$searchitem%'  ORDER BY last_date DESC";
+     $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+       echo' <div class="thread-count">'.$date.'</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
+    </div>
   </div>
-  <div id="topic-post">
-  <form id="topic-form" name="topic-form" action="newtopic-redirect.php" method="post">
-    <p id="close-topic" onclick="removeform()">x</p><br>
-    <input  type="text" id="topicname" name="topicname" placeholder="Enter new topic name" maxlength="50" required><br>
+
+  
+</main>
+
+<aside>
+    <div id="social-media">
+       <a href="https://www.linkedin.com/in/ahmedwab/"> <img  src="images/linkedin-icon.png" alt="discusssion"></a>
+       <a href="https://github.com/ahmedwab" ><img  src="images/github-icon.png" alt="discusssion"></a>
+    </div>
+    <image src="images/300x250.png">
+
+    <div class="forums">
+    <div class="thread-class">
+    <div class="list-title">New Threads</div>
+    <?php
+    $sql = "SELECT * FROM TOPICLIST  ORDER BY last_date DESC LIMIT 10";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $topicid=$row["topic_id"];
+        $topictitle=$row["topic_title"];
+        $date=$row["last_date"];
+
+        echo'<div class="thread">';
+          echo'    <img class="thread-icon" src="images/discussion-icon.png" alt="discusssion">';
+          echo'<div class="thread-right-name">';
+          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'&date=$date'> " . $row["topic_title"] ."</a>";
+          echo '</div>';
+    echo '</div>';
+      }
+    }
+  
+    
+    ?>
+    </div>
+  </div>
+  
+  <div id="new-topic">
+  <form  name="topic-form" action="newtopic-redirect.php" method="post">
+    <input  type="text"  id="topicname" name="topicname" placeholder="Enter new topic name" maxlength="50" required><br>
     <label for="cars">Choose a category:</label>
-    <select name="category" id="category" >
-      <option value="red">Sports</option>
-      <option value="blue">Economics</option>
-      <option value="purple">Politics</option>
-      <option value="green">Environment</option>
-      <option value="orange">Social</option>
-      <option value="lightgreen">travel</option>
-      <option value="#ADD8E6">Other</option>
+    <select name="category"  >
+      <option value="sports">Sports</option>
+      <option value="economics">Economics</option>
+      <option value="politics">Politics</option>
+      <option value="environment">Environment</option>
+      <option value="social">Social</option>
+      <option value="travel">travel</option>
+      <option value="other">Other</option>
 
     </select>
-    <input  type="submit" id="text-submit" name"text-submit"  value="Add Topic">
+    <input  type="submit"  name"text-submit"  value="Add Topic">
   </form>
-</div>
+</div> 
+</aside>
+
 </body>
 </html>

@@ -1,9 +1,10 @@
 <?php
 session_start();
-$servername = "localhost";
-$username = "id14970710_admin";
-$password = "M3e>ah-cdPUz?ByK";
-$databaseName = "id14970710_discussionforum";
+error_reporting(0);
+$servername = "mysql.discussionthreads.online";
+$username = "ahmedwab";
+$password = "251056Cc";
+$databaseName = "discussionthreads_discussion";
 
  $conn = new mysqli($servername,$username,$password,$databaseName);
 
@@ -74,7 +75,7 @@ echo '<script>
           $topicid=$row["topic_id"];
           $topictitle=$row["topic_title"];
 
-          echo "<div class='topic-item' style='background-color:".$row["color"].";'> ";
+          echo "<div class='topic-item' > ";
           echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'> " . $row["topic_title"] ."</a>";
           echo "</div> ";
         }
@@ -93,7 +94,7 @@ $conn->close();
 <head>
   <title>Forums</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="stylesheets/topiclist-styles.css">
+  <link rel="stylesheet" href="stylesheets/topiclist-style.css">
 </head>
 <body>
   </div>
@@ -103,13 +104,13 @@ $conn->close();
     <input  type="text" id="topicname" name="topicname" placeholder="Enter new topic name" maxlength="50" required><br>
     <label for="cars">Choose a category:</label>
     <select name="category" id="category" >
-      <option value="red">Sports</option>
-      <option value="blue">Economics</option>
-      <option value="purple">Politics</option>
-      <option value="green">Environment</option>
-      <option value="orange">Social</option>
-      <option value="lightgreen">travel</option>
-      <option value="#ADD8E6">Other</option>
+      <option value="sports">Sports</option>
+      <option value="economics">Economics</option>
+      <option value="politics">Politics</option>
+      <option value="environment">Environment</option>
+      <option value="social">Social</option>
+      <option value="travel">travel</option>
+      <option value="other">Other</option>
 
     </select>
     <input  type="submit" id="text-submit" name"text-submit"  value="Add Topic">

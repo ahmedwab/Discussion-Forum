@@ -1,9 +1,10 @@
 <?php
 session_start();
-$servername = "localhost";
-$username = "id14970710_admin";
-$password = "M3e>ah-cdPUz?ByK";
-$databaseName = "id14970710_discussionforum";
+error_reporting(0);
+$servername = "mysql.discussionthreads.online";
+$username = "ahmedwab";
+$password = "251056Cc";
+$databaseName = "discussionthreads_discussion";
 
  $conn = new mysqli($servername,$username,$password,$databaseName);
 

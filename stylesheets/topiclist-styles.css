@@ -1,12 +1,12 @@
 body{
-  background-color:white;
-  overflow:hidden;
+  background-color:#f2f2f2;
+  
 }
 #topnav {
   background-color:#0a192f;
   color:white;
   overflow: hidden;
-  margin-bottom: 1%;
+  
 }
 
 #topnav a {
@@ -33,34 +33,28 @@ body{
    display: block;
    margin: 0 auto;
 }
-#search-form{
-  text-align: center;
 
-}
 
 #search-text{
-  border-radius: 5px;
-  width:80%;
-   border: 2px solid lightgray;
+  width:95%;
+  font-size: 20px;
+  border: none;
 
 }
-#topic-submit{
-  border:none;
-  margin-left: 100px;
-  border-radius: 5px;
-  background-color: lightgray;
-  margin-left:10px;
-}
+
 #search-submit{
   background-color: lightgray;
-  vertical-align: middle;
-  margin-bottom: 2px;
   border:none;
-  border-radius: 5px;
 }
 #search-submit:hover{
   background-color: gray;
 
+}
+#topic-submit{
+  border:none;
+  border-radius: 5px;
+  background-color: lightgray;
+  margin-left:10px;
 }
 
 #topic-post{
@@ -105,13 +99,88 @@ body{
   min-width:200px;
   min-height: 50px;
   border-radius: 10px;
+  background-color: #0a192f;
 }
 .topic-item a{
-  color:white;
+  color:black;
+}
+/*new changes*/
+main{
+  float:left;
+  width:65%;
+  
 }
 
+.forums{
+  position: relative;
+  margin-right:2%;
+  margin-left: 2%;
+  margin-top: 5%;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  border-top: 3px solid #0a192f;
 
+}
+.list-title{
+  font-size: 30px;
+  margin-left: 2%;
+  margin-right: 2%;
+  
+}
+.thread-class{
+  margin-top: 1%;
+}
+.thread{
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-left: 2%;
+  border-top:1px solid #0a192f;
+  width:95%;
+  overflow: hidden;
+}
+.thread-icon{
+  float:left;
+  margin-left: 2%;
+}
+.thread-name{
+  float:left;
+  margin-top: 1.5%;
+  margin-left: 5%;
+  border-right: 1px solid #0a192f;
+  width:70%
+}
+.thread-count{
+  margin-top: 1%;
+  margin-left: 85%;
+  text-align: center;
+}
+aside{
+  width: 30%;
+  padding-left: 2%;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 3%;
+  float: right;
+  font-style: italic;
+  text-align: center;
+}
 
+#social-media{
+  position: relative;
+  margin: auto;
+  margin-bottom: 5%;
+  background-color: white;
+  height: 50px;
+  width: 75%;
+  border-radius: 5px;
+  
+
+}
+.thread-right-name{
+  margin-top: 1.5%;
+
+}
 @media only screen and (max-width: 1200px) {
 
   #topnav a {
@@ -130,6 +199,7 @@ body{
   }
   #search-text{
     font-size: 50px;
+    width:92%;
 
   }
   #search-submit{

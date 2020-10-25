@@ -99,9 +99,10 @@ body{
   min-width:200px;
   min-height: 50px;
   border-radius: 10px;
+  background-color: #0a192f;
 }
 .topic-item a{
-  color:white;
+  color:black;
 }
 /*new changes*/
 main{

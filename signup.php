@@ -4,7 +4,7 @@ error_reporting(0);
 $servername = "mysql.discussionthreads.online";
 $username = "ahmedwab";
 $password = "251056Cc";
-$databaseName = "discussionthreads";
+$databaseName = "discussionthreads_discussion";
 
 $conn = new mysqli($servername,$username,$password,$databaseName);
 
@@ -24,7 +24,7 @@ $accountfirstname=$_POST['register-firstname'];
 
 if($accountusername!=''){
 
-    $sql = "INSERT INTO ACCOUNTS (image,firstname, lastname, username,email,q,securityquestion,securityanswer)
+    $sql = "INSERT INTO ACCOUNTS (image,firstname, lastname, username,email,password,securityquestion,securityanswer)
     VALUES ('$accountimage','$accountfirstname', '$accountlasttname', '$accountusername','$accountemail',MD5('$accountpassword'),'$accountquestion','$accountanswer')";
 
     if ($conn->query($sql) === TRUE) {

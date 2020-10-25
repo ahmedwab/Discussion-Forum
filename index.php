@@ -33,12 +33,20 @@ else{
   echo "<script> alert('Invalid Username and Password combination')</script>";
 
 }
-
-
-
+}
+$forgotusername=$_POST['forgot-username'];
+if(isset($_POST['submit-pass'])){
+$sql = "SELECT lower(username) WHERE username='$forgotusername' LIMIT 1" ;
+if ($result -> num_rows > 0){
+  header('Location: forgotpassword.php');
+}
+else{
+  echo "<script> alert('Username does not exist')</script>";
+}
 }
 
- $conn->close();
+
+
  ?>
 
 <!DOCTYPE html>
@@ -75,8 +83,10 @@ else{
 
     </form>
   </div>
+
+
     <h6 onclick="enterpassword()" id="forgotten-password" class="click-here"> Forgot password? click here</h6>
-    <form name="password-form" id="password-form" action="forgotpassword.php" method="post">
+    <form name="password-form" id="password-form" action="forgotpassword.php"method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
       <input type="text" class="form-control" id="forgot-username" placeholder="username" name="forgot-username" required>
       <button type="submit" class="submit-pass" id="submit-pass" name="submit-pass">Submit</button>
     </form>
@@ -89,6 +99,28 @@ function enterpassword(){
 }
 
 </script>
+
+<?php
+
+
+$sql = "SELECT COUNT(*)as count FROM ACCOUNTS " ;
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$count = $row[count];
+
+
+if($count>10){
+
+echo "<div id='count' align='center' style='color:white' >";
+echo "<h1> Join <br>";
+echo  number_format($count);
+echo "<br> Users </h1>";
+
+
+$conn->close();
+
+}
+?>
 
 
 

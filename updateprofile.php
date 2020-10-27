@@ -8,13 +8,12 @@ $databaseName = "discussionthreads_discussion";
 
 $conn = new mysqli($servername,$username,$password,$databaseName);
 
-if ($_SESSION["user"] == NULL)
+$accountuser=$_GET["user"];
+
+if ($_SESSION["user"] != $accountuser)
 {
    header('Location: login.php');
 }
-$userprofile=$_GET["user"];
-echo "<script> document.title='$userprofile'</script>";
-
 
 echo" <div id='topnav'>
         <a href='main.php'>Discussion Forum</a>
@@ -28,7 +27,7 @@ echo" <div id='topnav'>
 
 
 
-      $sql = "SELECT * FROM ACCOUNTS WHERE username='$userprofile' ";
+      $sql = "SELECT * FROM ACCOUNTS WHERE username='$accountuser' ";
       $result = $conn->query($sql);
 
       if ($result->num_rows > 0) {
@@ -43,34 +42,12 @@ echo" <div id='topnav'>
           echo "<h1 align='center'>" .$row['firstname'] .' ' . $row['lastname'].'</h1><br>';
         }
       } else {
-        echo "0 results";
-      }
-
-      $sql = "SELECT * FROM TOPIC WHERE username='$userprofile' ORDER BY DATE DESC ";
-      $result = $conn->query($sql);
-
-      if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-          $topicid=$row["tid"];
-          $topictitle=$row["ttitle"];
-          echo "<div id='userpost'>";
-          $profileuser=$row['username'];
-            echo "<a href='profile.php?user=$profileuser'>" . $row['username'] ."</a>" . " wrote on " ."<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'>". $row['ttitle']. "</a><br>";
-            if(!empty($row['topicimage'])){
-                echo '<img  class="postimg"src="data:image/jpeg;base64,'.base64_encode( $row['topicimage'] ).'"/><br>';
-            }
-            echo  $row['textbox'] . '<br>';
-
-          echo "</div>";
-        }
-      }
-       else {
         header('Location: main.php');
       }
 
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -82,4 +59,3 @@ $conn->close();
 <body>
 
 </body>
-</html>

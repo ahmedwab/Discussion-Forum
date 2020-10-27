@@ -43,8 +43,7 @@ echo "<div id='page'>";
 
        echo "<form  action='search.php' method='post' id='search-form'>
        <input type='text' id='search-text' name='search-text' placeholder='Search...'>
-       <button type='submit' id='search-submit' name='search-submit' src='images/search.png'>
-       <img src='images/search.png' alt='Search icon'/></button>
+       <button type='submit' id='search-submit' name='search-submit' >Search</button>
        </form>";
 
 

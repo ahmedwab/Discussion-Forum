@@ -97,7 +97,7 @@ $conn->close();
 
       <button type="submit" class="submit" id="submit" name="submit-login">Submit</button>
     <br>
-      <a href="index.php"><h6 onclick="change_form()"class="click-here">  Already have an account? click here</h5></a>
+      <a href="login.php"><h6 onclick="change_form()"class="click-here">  Already have an account? click here</h5></a>
 
   </form>
   <br>

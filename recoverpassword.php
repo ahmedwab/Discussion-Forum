@@ -8,47 +8,24 @@ $databaseName = "discussionthreads_discussion";
 
 $conn = new mysqli($servername,$username,$password,$databaseName);
 
- $accountusername= $_POST['forgot-username'];
+ $token= $_GET['token'];
+ $accountusername=NULL;
 
-
-
- $sql="SELECT email FROM ACCOUNTS WHERE username='$accountusername' ";
+ $sql="SELECT username FROM PASSWORD WHERE token='$token' ";
  $result = $conn->query($sql);
-
-$email=NULL;
-$answer=NULL;
-   while($row = $result->fetch_assoc()){
-    $email=$row['email'];
-
-   }
-   $to = $email;
-         $subject = "Password recovery";
-         
-         $message = "<b>This is HTML message.</b>";
-         $message .= "<h1>This is headline.</h1>";
-         
-         $header = "From:no-reply@discussionthreads.online \r\n";
-         $header .= "MIME-Version: 1.0\r\n";
-         $header .= "Content-type: text/html\r\n";
-         
-         $retval = mail ($to,$subject,$message,$header);
-         if( $retval == true ) {
-          echo "Message sent successfully...";
-       }else {
-          echo "Message could not be sent...";
-       }
+ if($result-> num_rows>0){
+    while($row = $result->fetch_assoc()){
+        $accountusername=$row['username'];
+    }
+ }
+ else{
+     echo "something went wrong";
+ }
 
 
 
- echo '
- <div class="container" id="sign-in">
-   <div>
-   <br>
-   <h2 align="center" id="login-txt">An Email has been sent to<br>' .$email.'</h2><br>
-   <a align="center" href="index.php"><h3> Go back</h3></a><br>
-   <h6> feature is currently not working</h6>
-   
- </div>';
+
+
 
 
  $conn->close();
@@ -68,6 +45,22 @@ $answer=NULL;
 
 </head>
 <body>
+<div class="container" id="sign-in">
+      <div>
+      <br>
+      <h2 align="center" id="login-txt"><?php echo $accountusername;?></h2><br>
+    <form name="login-form" action="updatepassword.php" method="post">  
+        <input type="hidden" name="username" value="<?php echo $accountusername;?>">
+            <div class="form-group">
+            <input type="password" class="form-control" id="password" placeholder="Password" name="update-password" required>
+        </div>
+       
+
+        <button type="submit" class="submit" id="update-submit" name="submit-password">Submit</button>
+    </form>
+        <a align="center" href="index.php"><h3> Go back</h3></a><br>
+      
+    </div>
 
 
 

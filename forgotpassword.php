@@ -10,10 +10,23 @@ $conn = new mysqli($servername,$username,$password,$databaseName);
 
  $accountusername= $_POST['forgot-username'];
 
+ $emailtext=md5($accountusername). md5(date_default_timezone_get());
+ 
 
 
  $sql="SELECT email FROM ACCOUNTS WHERE username='$accountusername' ";
  $result = $conn->query($sql);
+
+ if($result-> num_rows>0){
+  $query = "INSERT INTO PASSWORD (TOKEN, username)
+  VALUES ( '$emailtext', '$accountusername')";
+     if(mysqli_query($conn, $query))
+     {
+          echo 'added';
+     }
+     else{
+       echo'nothing';
+     }
 
 $email=NULL;
 $answer=NULL;
@@ -24,8 +37,8 @@ $answer=NULL;
    $to = $email;
          $subject = "Password recovery";
          
-         $message = "<b>This is HTML message.</b>";
-         $message .= "<h1>This is headline.</h1>";
+         $message = "<b>Click the link to recover password.</b>";
+         $message .= "http://www.discussionthreads.online/recoverpassword.php?token=" . $emailtext;
          
          $header = "From:no-reply@discussionthreads.online \r\n";
          $header .= "MIME-Version: 1.0\r\n";
@@ -44,11 +57,21 @@ $answer=NULL;
  <div class="container" id="sign-in">
    <div>
    <br>
-   <h2 align="center" id="login-txt">An Email has been sent to<br>' .$email.'</h2><br>
+   <h2 align="center" id="login-txt">An Email has been sent to recover password</h2><br>
    <a align="center" href="index.php"><h3> Go back</h3></a><br>
-   <h6> feature is currently not working</h6>
    
  </div>';
+      }
+      else{
+        echo '
+ <div class="container" id="sign-in">
+   <div>
+   <br>
+   <h2 align="center" id="login-txt">Invalid username</h2><br>
+   <a align="center" href="index.php"><h3> Go back</h3></a><br>
+   
+ </div>';
+      }
 
 
  $conn->close();

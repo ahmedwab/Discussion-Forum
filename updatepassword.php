@@ -8,12 +8,14 @@ $databaseName = "discussionthreads_discussion";
 
 $conn = new mysqli($servername,$username,$password,$databaseName);
 
+$username= $_POST['username'];
+$password= $_POST['update-password'];
 
-$accountusername= $_POST['forgot-username'];
-$accountpassword=$_POST['password'];
-$sql="UPDATE ACCOUNTS SET password=MD5('$accountpassword') WHERE username='$accountusername'  ";
+$sql = "UPDATE ACCOUNTS SET password=MD5('$password') WHERE username='$username'";
 
-$_SESSION["user"] = $accountusername;
+$_SESSION["user"] = $username;
 header('Location: main.php');
+
+
 $conn->close();
 ?>

@@ -50,7 +50,7 @@ echo "<div id='page'>";
 <head>
   <title>Forums</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="stylesheets/home-style.css">
+  <link rel="stylesheet" href="stylesheets/homestyles.css">
 </head>
 <body>
 <main>

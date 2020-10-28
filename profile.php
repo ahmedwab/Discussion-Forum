@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 $servername = "mysql.discussionthreads.online";
 $username = "ahmedwab";
-$password = "251056Cc";
+$password = "discussion1407";
 $databaseName = "discussionthreads_discussion";
 
 $conn = new mysqli($servername,$username,$password,$databaseName);
@@ -23,8 +23,12 @@ echo" <div id='topnav'>
         if($userprofile==$_SESSION["user"]){
          echo" <a href='updateprofile.php?user=$userprofile'><img src='images/profile-icon.png' alt='My profile'</a>";
         }
+        if ($userprofile == $activeuser)
+        {
+          echo " <a href='destroy.php'>Sign Out</a>";
+        }
         echo "
-          <a href='destroy.php'>Sign Out</a>
+         
         </div>
       </div><br>";
 

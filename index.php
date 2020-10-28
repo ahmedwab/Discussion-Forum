@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 $servername = "mysql.discussionthreads.online";
 $username = "ahmedwab";
-$password = "251056Cc";
+$password = "discussion1407";
 $databaseName = "discussionthreads_discussion";
 
  $conn = new mysqli($servername,$username,$password,$databaseName);
@@ -50,7 +50,7 @@ echo "<div id='page'>";
 <head>
   <title>Forums</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="stylesheets/homestyles.css">
+  <link rel="stylesheet" href="stylesheets/home-styles.css">
 </head>
 <body>
 <main>

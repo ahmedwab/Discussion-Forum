@@ -29,7 +29,9 @@ $profileimage=NULL;
 echo "<div id='page'>";
  echo" <div id='topnav'>
          <a href='main.php'>Discussion Forum</a>
-         <div id='topnav-right'>";
+         <div id='topnav-right'>
+         <a href='notifications.php'>" ."<img id='profileImage' src='images/bell.png'></a> 
+         <a href='friends.php'>" ."<img id='profileImage' src='images/friends.png'></a> ";
          if($profileimage==NULL){
            echo      " <a href='profile.php?user=$accountusername'>" ."<img id='profileImage' src='images/default.png'></a>";
 
@@ -59,7 +61,7 @@ echo "<div id='page'>";
 <head>
   <title>Forums</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="stylesheets/home-style.css">
+  <link rel="stylesheet" href="stylesheets/homestyles.css">
 </head>
 <body>
 <main>

@@ -30,7 +30,8 @@ echo "<div id='page'>";
  echo" <div id='topnav'>
          <a href='main.php'>Discussion Forum</a>
          <div id='topnav-right'>
-         <a href='notifications.php'>" ."<img id='profileImage' src='images/bell.png'></a> ";
+         <a href='notifications.php'>" ."<img id='profileImage' src='images/bell.png'></a> 
+         <a href='friends.php'>" ."<img id='profileImage' src='images/friends.png'></a> ";
          if($profileimage==NULL){
            echo      " <a href='profile.php?user=$accountusername'>" ."<img id='profileImage' src='images/default.png'></a>";
 

@@ -15,6 +15,12 @@ if ($_SESSION["user"] == NULL)
 $user= $_SESSION["user"];
 $friend= $_SESSION["friend"];
 
+$stmnt = "INSERT INTO NOTIFICATIONS (username, text,otheruser)
+VALUES ('$user', 'Added you as a friend!','$friend')";
+if ($conn->query($stmnt) === TRUE) {
+  echo "";
+}
+
 $sql = "INSERT INTO FRIENDS (username1, username2)
 VALUES ('$user', '$friend')";
 

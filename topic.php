@@ -57,26 +57,10 @@ if(isset($_POST["insert"]))
       {
            echo '';
       }
-                $query = "SELECT username FROM TOPIC WHERE tid='$topicid' ORDER BY DATE DESC ";
-                $result = mysqli_query($connect, $query);
-
-                while($row = mysqli_fetch_array($result))
-                {
-                    $otheruser=$row["username"];
-                  if ($row["username"]!=$postusername){
-                    $sql = "INSERT INTO NOTIFICATIONS (username, topicid, topictitle,otheruser)
-                            VALUES ('$postusername', '$topicid', '$topicname','$otheruser')";
-
-                            if ($conn->query($sql) === TRUE) {
-                            echo "New record created successfully";
-                            } else {
-                             echo "Error: " . $sql . "<br>" . $conn->error;
-                            }
-                  }
+      
 
 
-                }
-              }
+ }
  ?>
  <!DOCTYPE html>
  <html>

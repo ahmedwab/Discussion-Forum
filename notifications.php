@@ -30,7 +30,8 @@ echo "<div id='page'>";
  echo" <div id='topnav'>
          <a href='main.php'>Discussion Forum</a>
          <div id='topnav-right'>
-         <a href='notifications.php'>" ."<img id='profileImage' src='images/bell.png'></a> ";
+         <a href='notifications.php'>" ."<img id='profileImage' src='images/bell.png'></a> 
+         <a href='friends.php'>" ."<img id='profileImage' src='images/friends.png'></a> ";
          if($profileimage==NULL){
            echo      " <a href='profile.php?user=$accountusername'>" ."<img id='profileImage' src='images/default.png'></a>";
 
@@ -76,8 +77,7 @@ echo "<div id='page'>";
       // output data of each row
       while($row = $result->fetch_assoc()) {
         $username=$row["username"];
-        $topicid=$row["topicid"];
-        $topictitle=$row["topictitle"];
+        $text=$row["text"];
         $date=$row["time"];
 
         echo'<div class="thread">';
@@ -89,16 +89,16 @@ echo "<div id='page'>";
               if(empty($r['image'])){
                 echo "<a href='profile.php?user=".$username."'>";
                   echo "<img class='friend-image' src='images/default.png'/><br>";
-                  echo $username."</a>"." posted on";
+                  echo $username."</a>";
               }
               else{
                 echo "<a href='profile.php?user=".$username."'>";
               echo '<img class="friend-image" src="data:image/jpeg;base64,'.base64_encode( $r['image'] ).'"/><br>';
-              echo $username."</a>"." posted on";
+              echo $username."</a>";
             }
         }
 
-          echo "<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'> " . $row["topictitle"] ."</a>";
+          echo "<p>" ." ".$text,"</p>";
           echo '</div>';
        echo' <div class="thread-count">'.$date.'</div>';
     echo '</div>';

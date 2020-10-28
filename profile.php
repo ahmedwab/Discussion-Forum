@@ -12,7 +12,7 @@ if ($_SESSION["user"] == NULL)
 {
    header('Location: login.php');
 }
-
+$activeuser=$_SESSION["user"];
 $userprofile=$_GET["user"];
 echo "<script> document.title='$userprofile'</script>";
 
@@ -48,7 +48,7 @@ echo" <div id='topnav'>
         }
       } 
       if($userprofile!=$_SESSION["user"]){
-        $sql = "SELECT * FROM FRIENDS WHERE username1='$userprofile' OR username2='$userprofile'";
+        $sql = "SELECT * FROM FRIENDS WHERE (username1='$userprofile' AND username2='$activeuser') OR (username2='$userprofile' AND username1='$activeuser')";
         $result = $conn->query($sql);
 
         if ($result->num_rows <=0) {  

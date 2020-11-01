@@ -51,6 +51,7 @@ echo "<div id='page'>";
   <title>Forums</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="stylesheets/home-styles.css">
+  <script data-ad-client="ca-pub-4249218274371812" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <body>
 <main>

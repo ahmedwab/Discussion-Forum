@@ -2,7 +2,7 @@
 
 This Website is a discussion forum where multiple users could post on different topics such as sports and politics.
 
-<img src="images/screenshot.jpg" alt="preview">
+<img src="images/screenshot.png" alt="preview">
 
 ## Where?
 

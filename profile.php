@@ -1,3 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><?php echo $_GET['user'] ?></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="stylesheets/topic-style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script><!-- Angular JS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+  <div id='topnav'>
+         <a href='main.php'><img id='logoIcon' src='images/discussion-icon.png'>Discussion Forum</a>
+         <div id='topnav-right'>
+            
+
+
 <?php
 session_start();
 error_reporting(0);
@@ -6,162 +23,126 @@ $username = "ahmedwab";
 $password = "discussion1407";
 $databaseName = "discussionthreads_discussion";
 
-$conn = new mysqli($servername,$username,$password,$databaseName);
+$conn = new mysqli($servername, $username, $password, $databaseName);
 
 if ($_SESSION["user"] == NULL)
 {
-   header('Location: login.php');
+    header('Location: login.php');
 }
-$activeuser=$_SESSION["user"];
-$userprofile=$_GET["user"];
-echo "<script> document.title='$userprofile'</script>";
-
-
-echo" <div id='topnav'>
-        <a href='main.php'>Discussion Forum</a>
-        <div id='topnav-right'>";
-        if($userprofile==$_SESSION["user"]){
-         echo" <a href='updateprofile.php?user=$userprofile'><img src='images/profile-icon.png' alt='My profile'</a>";
-        }
-        if ($userprofile == $activeuser)
-        {
-          echo " <a href='destroy.php'>Sign Out</a>";
-        }
-        echo "
-         
-        </div>
-      </div><br>";
+$accountusername = $_SESSION["user"];
 
 
 
 
+$conn->query($sql);
 
-      $sql = "SELECT * FROM ACCOUNTS WHERE username='$userprofile' ";
-      $result = $conn->query($sql);
+$query = "SELECT image FROM ACCOUNTS WHERE username='$accountusername' LIMIT 1";
+$result = mysqli_query($conn, $query);
 
-      if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-          if(empty($row['image'])){
-              echo "<img id='profileimage' src='images/default.png'/><br>";
-          }
-          else{
-          echo '<img id="profileimage" src="data:image/jpeg;base64,'.base64_encode( $row['image'] ).'"/><br>';
-        }
-          echo "<h1 align='center'>" .$row['firstname'] .' ' . $row['lastname'].'</h1><br>';
-        }
-      } 
-      if($userprofile!=$_SESSION["user"]){
-        $sql = "SELECT * FROM FRIENDS WHERE (username1='$userprofile' AND username2='$activeuser') OR (username2='$userprofile' AND username1='$activeuser')";
-        $result = $conn->query($sql);
+$profileimage = NULL;
+while ($row = mysqli_fetch_array($result))
+{
+    $profileimage = $row['image'];
+}
 
-        if ($result->num_rows <=0) {  
-          $_SESSION["friend"]=$userprofile;
+if ($profileimage == NULL)
+{
+    echo " <a href='profile.php?user=$accountusername'>" . "<img id='profileImage' src='images/default.png'></a>";
 
-        echo" <form method='POST' action='addfriend.php'> 
-              <input type='submit' id='add-friend' name='add-friend' value='Add Friend'>
-              </form>";
-       }
-        else echo "<div id='added' name='added'>Friends</div>";
-      }
+}
+else
+{
+    echo " <a href='profile.php?user=$accountusername'>" . "<img id='profileImage' src='data:image/jpeg;base64," . base64_encode($profileimage) . "'></a>";
+}
 
-      echo "<button id='postbutton' onclick='posts_section()'>Posts</button>";
-      echo "<button id='friendsbutton' onclick='friends_section()'>Friends</button>";
-      $sql = "SELECT * FROM TOPIC WHERE username='$userprofile' ORDER BY DATE DESC ";
-      $result = $conn->query($sql);
+  $userprofile =$_GET['user'];
 
-      echo "<div id='posts-section'>";
-
-      if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-          $topicid=$row["tid"];
-          $topictitle=$row["ttitle"];
-          echo "<div id='userpost'>";
-          $profileuser=$row['username'];
-            echo "<a href='profile.php?user=$profileuser'>" . $row['username'] ."</a>" . " wrote on " ."<a href='redirect-topic.php?topicid=$topicid&topicname=$topictitle'>". $row['ttitle']. "</a><br>";
-            if(!empty($row['topicimage'])){
-                echo '<img  class="postimg"src="data:image/jpeg;base64,'.base64_encode( $row['topicimage'] ).'"/><br>';
-            }
-            echo  $row['textbox'] . '<br>';
-
-          echo "</div>";
-        }
-      }
-      echo "</div>";
-      
-
-      
-
-
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Forums</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="stylesheets/profilestyles.css">
-</head>
-<body>
-
-<?php
-
-$sql = "SELECT * FROM FRIENDS WHERE username1='$userprofile' OR username2='$userprofile'";
-$result = $conn->query($sql);
-
-echo "<div id='friends-section'>";
-
-if ($result->num_rows > 0) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-    if($row["username1"]==$userprofile) $friend= $row["username2"];
-    else $friend= $row["username1"];
-
-    $stmnt = "SELECT * FROM ACCOUNTS WHERE username='$friend' ";
-      $res = $conn->query($stmnt);
-
-      echo  '<a class="friend" href="profile.php?user='.$friend.'">';
-        while($r = $res->fetch_assoc()) {
-          if(empty($r['image'])){
-              echo "<img class='friend-image' src='images/default.png'/><br>";
-          }
-          else{
-          echo '<img class="friend-image" src="data:image/jpeg;base64,'.base64_encode( $r['image'] ).'"/><br>';
-        }
-          echo "<h6 align='center'>" .$r['firstname'] .' ' . $r['lastname'].'</h1><br>';
-        }
-      echo '</a>';
-       
-
-
+  if($userprofile ==$accountusername){
+    echo "<a href='destroy.php'> Sign Out</a>";
   }
+
+  echo '</div>
+  </div>';
+
+
+  $query = "SELECT * FROM ACCOUNTS 
+  WHERE username='$userprofile'
+  LIMIT 1";
+  $result = mysqli_query($conn, $query);
+
+$userImage = NULL;
+
+while ($row = mysqli_fetch_array($result))
+{
+  echo '<div id="Profile">';
+
+  if ($row['image'] == NULL)
+{
+  echo " <a href='profile.php?user=$userprofile'>" . "<img id='userImage' src='images/default.png'></a>";
+
 }
- else {
-  echo "No friends to show.";
+else
+{
+    echo " <a href='profile.php?user=$userprofile'>" . "<img id='userImage' src='data:image/jpeg;base64," . base64_encode($row['image']) . "'></a>";
 }
-echo "</div>";
-$conn->close();
+  
+  echo '<h1>'.$row['firstname'].' '.$row['lastname'].'</h1>';
+  echo '</div>
+  ';
+}
+
+
+
+ 
+
+
+$query = "SELECT * FROM ACCOUNTS A, POSTS P,TOPIC T 
+WHERE A.username = P.username
+AND T.TopicID = P.TopicID
+ORDER BY created_at DESC";
+$result = mysqli_query($conn, $query);
+while ($row = mysqli_fetch_array($result))
+{
+    $topicImage = '<img class="post-profileImage" src="images/default.png">';
+
+    if ($row['image'] != NULL) $topicImage = "<img class='post-profileImage' src='data:image/jpeg;base64," . base64_encode($row['image']) . "'>";
+
+    $postImage = NULL;
+    if ($row['postImage'] != NULL) $postImage = "<img class='post-image' src='data:image/jpeg;base64," . base64_encode($row['postImage']) . "'>";
+
+    echo '
+        <div class="post">
+        <a href="topic.php?topicid='.$row['TopicID'].'&topicname='.$row['TITLE'].'">'.
+            '<div class="post-topic">
+
+              '.$row['TITLE'].'
+
+            </div>
+           </a>
+           <hr>
+          <a href="profile.php?user='.$accountusername.'">'.
+            '<div class="post-person">
+
+              <div class="post-personImage">' . $topicImage . '</div>
+              <div class="post-personName">' . $row['username'] . '</div>
+
+            </div>
+           </a>
+           <hr>
+
+        <div class="post-content">
+
+            <div class="post-contentImage">' . $postImage . '</div>
+            <div class="post-contentText">' . $row['textbox'] . '</div>
+
+        </div>
+          
+        
+        
+       </div>';
+}
+
+
+
+
 ?>
-
-</body>
-</html>
-
-<script>
-
-
-function posts_section(){
-  document.getElementById("posts-section").style.display = "block";
-  document.getElementById("friends-section").style.display = "none";
-  document.getElementById("friendsbutton").style.color="#1E90FF";
-  document.getElementById("postbutton").style.color="#0a192f";
-
-}
-function friends_section(){
-  document.getElementById("posts-section").style.display = "none";
-  document.getElementById("friends-section").style.display = "block";
-  document.getElementById("friendsbutton").style.color="#0a192f";
-  document.getElementById("postbutton").style.color="#1E90FF";
-
-}
-</script>

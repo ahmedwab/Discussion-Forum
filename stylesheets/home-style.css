@@ -1,0 +1,352 @@
+*{
+  text-decoration: none;
+  padding:none;
+  margin:none;
+}
+body{
+background-color:whitesmoke;
+
+}
+#topnav {
+background-color:white;
+padding-top:5px;
+overflow: hidden;
+border-bottom: 2px solid whitesmoke;
+margin-bottom: 5px;
+  
+
+}
+
+#topnav a {
+float: left;
+color: #0a192f;
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
+font-size: 20px;
+}
+
+
+#topnav a:hover {
+color: #52a39e;
+}
+
+#topnav-right {
+float: right;
+}
+
+#topnav-right img{
+float: left;
+}
+
+#newTopic{
+  float:left;
+  background-color:#0a192f;
+  color:white;
+  font-size: 20px;
+  margin: 15px;
+  padding:10px 10px;
+  border:none;
+  border-radius:4px;
+  
+}
+#newTopic:hover{
+  background-color: #52a39e;
+}
+#profileImage{
+width:50px;
+height:50px;
+border-radius: 50%;
+ display: block;
+ margin: 0 auto;
+}
+
+#search-form{
+  width:100%;
+  margin-bottom:1%;
+  overflow:hidden;
+}
+
+#search-text{
+  
+  font-size:25px;
+  padding:5px;
+  margin-left:1%;
+  width:80%;
+  border:none;
+  border-radius:10px;
+
+
+}
+
+#search-submit{
+  margin-left:1%;
+  font-size:25px; 
+  padding:5px 10px;
+  border:none;
+  border-radius:5px;
+  background-color:#0a192f;
+  color:white;
+
+
+}
+#search-submit:hover{
+   background-color: #52a39e;
+
+}
+
+div.scrollmenu {
+  margin-left:1%;
+  color: #0a192f;
+  overflow: auto;
+  white-space: nowrap;
+  margin-bottom: 2%;
+}
+
+div.scrollmenu a {
+ 
+  background-color: #52a39e;
+  display: inline-block;
+  font-size: 40px;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  padding: 14px;
+  margin-right: 1%;
+  text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+  background-color: #0a192f;
+}
+
+#leftPage{
+ 
+  float:left;
+  width:65%;
+  overflow:scroll;
+  height:100vh;
+}
+.topic{
+  background-color: white;
+  margin-left:2%;
+  width:96%;
+  height:200px;
+  border:none;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:20px;
+  
+}
+.topic-person{
+  display:block;
+  position:relative;
+  height:100vh;
+  width:20%;
+  float:left;
+  text-align: center;
+}
+.topic-image{
+  text-align: center;
+  width:100px;
+  margin-top: 50px;
+  border-radius:100%;
+  
+}
+.topic-info{
+  height:100vh;
+  width:80%;
+  float:right;
+  text-align: center;
+
+}
+
+.topic-name{
+  float:left;
+  width:75%;
+  height:100vh;
+  padding:20px;
+  
+}
+.topic-name  a{
+  margin-bottom:20px;
+  color: #52a39e;
+  text-decoration: none;
+}
+.topic-name  a:hover{
+  
+  color: #0a192f;
+}
+.topic-stats{
+  float:left;
+  width:25%;
+  height:100vh;
+  padding:40px;
+  font-size:40px;
+}
+#rightPage{
+  float:right;
+  width:35%;
+  overflow:scroll;
+  height:100vh;
+  
+}
+
+#categories{
+  background-color:white;
+  margin:2%;
+  margin-top:0px;
+  padding:2%;
+  min-height:20vh;
+  border:none;
+  border-radius:10px;
+  overflow:hidden;
+ 
+  
+}
+#categories li{
+  margin-bottom:5px;
+  font-size: 25px;
+  padding:2px 20px;
+  margin-right:2%;
+  border-radius:5px;
+  min-width:35%;
+  background-color: #52a39e;
+  color:white;
+  float:left;
+  list-style-type: none; /* Remove bullets */
+}
+#categories li a{
+  color:white;
+   text-decoration: none;
+}
+#categories li:hover{
+  background-color: #0a192f;
+}
+
+
+#users{
+  background-color:white;
+  margin:2%;
+  margin-top:0px;
+  padding:2%;
+  min-height:20vh;
+  border:none;
+  border-radius:10px;  
+  
+}
+#users li{
+
+  list-style-type: none; /* Remove bullets */
+}
+#users a{
+  color:#52a39e;
+  text-decoration: none;
+  list-style-type: none; /* Remove bullets */
+}
+#users a:hover{
+ color: #0a192f;
+  
+}
+
+.userImage{
+  width:50px;
+  margin:10px;
+  margin-right:50px;
+  border-radius:100%;
+}
+#fullPage{
+
+width:100%;
+}
+#createTopic{
+ position:fixed;
+ background-color: rgba(82,163,158,0.8);
+ color:white;
+ min-height:60vh;
+ width:60%;
+ margin-left:20%;
+ border-radius:15px;
+ text-align:center;
+ padding:20px;
+ display:none;
+ overflow:hidden;
+}
+#createTopic input,textarea{
+  width:80%;
+  padding:10px;
+  border:none;
+  border-radius:5px;
+}
+#createTopic p{
+   margin-left:60%
+}
+#topic-submit{
+  background-color:#0a192f;
+  color:white;
+}
+#topic-submit:hover{
+  background-color:navy;
+
+}
+#close{
+  float:right;
+  cursor:pointer;
+}
+#close:hover{
+ color: #0a192f;
+}
+footer {
+    text-align: center;
+    padding:20px;
+}
+footer a{
+    text-align: center;
+    padding:20px;
+    color:navy;
+}
+@media only screen and (max-width: 800px) {
+    
+    #leftPage{
+        width:100%;
+    }
+  #rightPage{
+    width:100%;
+  
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

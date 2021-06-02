@@ -1,3 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><?php echo $_GET['topicname'] ?></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="stylesheets/topic-style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script><!-- Angular JS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+  <div id='topnav'>
+         <a href='main.php'><img id='logoIcon' src='images/discussion-icon.png'>Discussion Forum</a>
+         <div id='topnav-right'>
+            <form  action='search.php' method='get' id='search-form'>
+              <input type='text' id='search-text' name='search-text' ng-model="search "placeholder='Search...'>
+              <button type='submit' id='search-submit' name='search-submit' ><i class="fa fa-search"></i></button>
+            </form>
+
+
 <?php
 session_start();
 error_reporting(0);
@@ -6,135 +26,152 @@ $username = "ahmedwab";
 $password = "discussion1407";
 $databaseName = "discussionthreads_discussion";
 
- $connect = new mysqli($servername,$username,$password,$databaseName);
+$conn = new mysqli($servername, $username, $password, $databaseName);
 
- if ($_SESSION["user"] == NULL)
- {
+if ($_SESSION["user"] == NULL)
+{
     header('Location: login.php');
- }
- $accountusername = $_SESSION["user"];
- $topicid= $_SESSION['topicid'];
- $topicname= $_SESSION['topicname'];
-
- $query = "SELECT image FROM ACCOUNTS WHERE username='$accountusername' LIMIT 1";
- $result = mysqli_query($connect, $query);
-
-$profileimage=NULL;
- while($row = mysqli_fetch_array($result))
- {
-   $profileimage=$row['image'];
- }
-
-echo "<script> document.title='$topicname'</script>";
-echo" <div id='topnav'>
-        <a href='main.php'>Discussion Forum</a>
-        <div id='topnav-right'>";
-        if($profileimage==NULL){
-          echo      " <a href='profile.php?user=$accountusername'>" ."<img id='profileImage' src='images/default.png'></a>";
-
-        }
-        else{
- echo      " <a href='profile.php?user=$accountusername'>" ."<img id='profileImage' src='data:image/jpeg;base64,".base64_encode( $profileimage )."'></a>";
 }
- echo"         <a href='destroy.php'>Sign Out</a>
-        </div>
-      </div>";
+$accountusername = $_SESSION["user"];
+$topicid = $_SESSION['topicid'];
+$topicname = $_SESSION['topicname'];
+
+$views = 1;
+$topicid= $_GET['topicid'];
+$query = "SELECT views FROM TOPIC WHERE TopicID ='$topicid' LIMIT 1";
+$result = mysqli_query($conn, $query);
+
+while ($row = mysqli_fetch_array($result))
+{
+    $views= $row['views']+1;
+}
 
 
+$sql = "UPDATE TOPIC SET views='$views' WHERE TopicID ='$topicid' ";
 
-if(isset($_POST["insert"]))
- {
-      $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
-      $posttext=$_POST['textbox'];
+$conn->query($sql);
 
-      $postusername=$accountusername;
+$query = "SELECT image FROM ACCOUNTS WHERE username='$accountusername' LIMIT 1";
+$result = mysqli_query($conn, $query);
+
+$profileimage = NULL;
+while ($row = mysqli_fetch_array($result))
+{
+    $profileimage = $row['image'];
+}
+
+if ($profileimage == NULL)
+{
+    echo " <a href='profile.php?user=$accountusername'>" . "<img id='profileImage' src='images/default.png'></a>";
+
+}
+else
+{
+    echo " <a href='profile.php?user=$accountusername'>" . "<img id='profileImage' src='data:image/jpeg;base64," . base64_encode($profileimage) . "'></a>";
+}
+  echo '</div>
+  </div>';
+
+  $topicname = $_GET['topicname'];
+  $topicid = $_GET['topicid'];
+
+ 
+echo '<div id="newPost">';
+      if ($profileimage == NULL)
+{
+    echo " <a href='profile.php?user=$accountusername'>" . "<img id='newPost-profileImage' src='images/default.png'>".$accountusername."</a>";
+
+}
+else
+{
+    echo " <a href='profile.php?user=$accountusername'>" . "<img id='newPost-profileImage' src='data:image/jpeg;base64," . base64_encode($profileimage) . "'>".$accountusername."</a>";
+} 
+    
+      echo '
+      <hr>
+      <form id="createPost" name="createPost" action="" method="GET" enctype = "multipart/form-data">
+      <div ng-app="">
+     
+      <textarea id="post-text" ng-trim="false" ng-model="countmodel" name="post-text" rows="4" cols="50" maxlength="140"></textarea>
+
+      <p id="charCount">{{140 - countmodel.length}} characters left</p>
+      </div>
+      <input type="hidden"  name="topicid" value="'.$topicid.'" >
+      <input type="hidden" name="topicname" value="'.$topicname.'">
+      <input type="file" id="uploadImage" name="uploadImage" accept="image/*">
+      <input type="submit" value="Post" id="uploadPost" name="uploadPost">
 
 
-      $query = "INSERT INTO TOPIC (username, textbox,topicimage,tid,ttitle)
-      VALUES ( '$postusername', '$posttext','$file','$topicid','$topicname')";
-
-      if(mysqli_query($connect, $query))
-      {
-           echo '';
-      }
       
 
+      </form>
+      </div>';
 
- }
- ?>
- <!DOCTYPE html>
- <html>
-      <head>
-           <title>Topic</title>
-           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-           <link rel="stylesheet" href="stylesheets/topic-style.css">
-           <script src="script.js"></script>
-      </head>
-      <body>
-           <br /><br />
-           <div class="container">
 
-             <form method="post" enctype="multipart/form-data" id='post-form'>
+  if( isset($_GET['uploadPost']) )
+{
+  $file = addslashes(file_get_contents($_FILES["uploadImage"]["tmp_name"]));
+  $posttext=$_GET['post-text'];
+  $postusername=$accountusername;
+  $topicid =$_GET['topicid'];
 
-                 Write something below and/or upload image<br>
-                 <div contentEditable="true" id="input-section">
-                 <p id='imageposted'></p>
+  echo $posttext. ' '.$postusername.' '.$file.' '.$topicid;
 
-                 <textarea  id='input-item' name="textbox" placeholder="New post..."></textarea>
+  $query = "INSERT INTO POSTS (username, textbox,topicID,postImage)
+  VALUES ( '$postusername', '$posttext','$topicid','$file')";
+  
+  if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+  } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }
 
-               </div>
-               <table id='upload-section'>
-                 <tr>
-                   <td class='upload-item' id="image-upload">
-                     <div class="image-upload">
-                       <label for="file-input">
-                         <img src="images/upload-black.png"/>
-                       </label>
-
-                       <input id="file-input" type="file" name="image" id="image" multiple onchange="showname()" />
-                     </div>
-                   </td>
-
-                   <td class='upload-item'>
-                  <input type="submit" name="insert" id="submit-post" value="Post" />
-                  </td>
-                  </tr>
-               </table>
-             </form>
-                <br />
-                <br />
-                <div class="posts-section">
-
-                <?php
-                $topicid=$_SESSION['topicid'];
-                $query = "SELECT lower(username),username,textbox,topicimage,date,tid FROM TOPIC WHERE tid='$topicid' ORDER BY DATE DESC ";
-                $result = mysqli_query($connect, $query);
-
-              if($result-> num_rows>0){
-                while($row = mysqli_fetch_array($result))
-                {
-                  echo "<div id='userpost'>";
-                  echo "<div class='profile-tab'>";
-                  $profileuser=$row['username'];
-
-                    echo "<a href='profile.php?user=$profileuser'>" . '<img  src="images/default.png" width="50px" height="50px"/> '.$row['username'] ."</a>" . "<p class='post-date'>".$row['date']."</p> <br>";
-                    echo "</div><br>";
-                    echo  $row['textbox'] . '<br>';
-                    if(!empty($row['topicimage'])){
-                        echo '<img  class="postimg" src="data:image/jpeg;base64,'.base64_encode( $row['topicimage'] ).'"/><br>';
-                    }
+  
+}
 
 
 
-                  echo "</div>";
-                }
+$topicid = $_GET['topicid'];
+$query = "SELECT * FROM ACCOUNTS A, POSTS P,TOPIC T 
+WHERE A.username = P.username
+AND T.TopicID = P.TopicID
+AND T.topicID = '$topicid'
+ORDER BY created_at DESC";
+$result = mysqli_query($conn, $query);
+while ($row = mysqli_fetch_array($result))
+{
+    $topicImage = '<img class="post-profileImage" src="images/default.png">';
 
-              }
-              else {
-                echo "Be the first person to post";
-              }
-                ?>
-           </div>
-      </body>
- </html>
+    if ($row['image'] != NULL) $topicImage = "<img class='post-profileImage' src='data:image/jpeg;base64," . base64_encode($row['image']) . "'>";
+
+    $postImage = NULL;
+    if ($row['postImage'] != NULL) $postImage = "<img class='post-image' src='data:image/jpeg;base64," . base64_encode($row['postImage']) . "'>";
+
+    echo '
+        <div class="post">
+          <a href="profile.php?user='.$accountusername.'">'.
+            '<div class="post-person">
+
+              <div class="post-personImage">' . $topicImage . '</div>
+              <div class="post-personName">' . $row['username'] . '</div>
+
+            </div>
+           </a>
+           <hr>
+
+        <div class="post-content">
+
+            <div class="post-contentImage">' . $postImage . '</div>
+            <div class="post-contentText">' . $row['textbox'] . '</div>
+
+        </div>
+          
+        
+        
+       </div>';
+}
+
+
+
+
+?>

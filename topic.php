@@ -1,3 +1,8 @@
+<?php
+include("config.php");
+session_start();
+error_reporting(0);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,14 +24,6 @@
 
 
 <?php
-session_start();
-error_reporting(0);
-$servername = "mysql.discussionthreads.online";
-$username = "ahmedwab";
-$password = "discussion1407";
-$databaseName = "discussionthreads_discussion";
-
-$conn = new mysqli($servername, $username, $password, $databaseName);
 
 if ($_SESSION["user"] == NULL)
 {
@@ -89,7 +86,7 @@ else
     
       echo '
       <hr>
-      <form id="createPost" name="createPost" action="" method="GET" enctype = "multipart/form-data">
+      <form id="createPost" name="createPost" enctype="multipart/form-data" method="post" action="#">
       <div ng-app="">
      
       <textarea id="post-text" ng-trim="false" ng-model="countmodel" name="post-text" rows="4" cols="50" maxlength="140"></textarea>
@@ -98,7 +95,7 @@ else
       </div>
       <input type="hidden"  name="topicid" value="'.$topicid.'" >
       <input type="hidden" name="topicname" value="'.$topicname.'">
-      <input type="file" id="uploadImage" name="uploadImage" accept="image/*">
+      <input input type="file" name="image" id = "uploadImage">
       <input type="submit" value="Post" id="uploadPost" name="uploadPost">
 
 
@@ -108,26 +105,36 @@ else
       </div>';
 
 
-  if( isset($_GET['uploadPost']) )
+      
+
+
+  if( isset($_POST['uploadPost']) )
 {
-  $file = addslashes(file_get_contents($_FILES["uploadImage"]["tmp_name"]));
-  $posttext=$_GET['post-text'];
+  $posttext=$_POST['post-text'];
   $postusername=$accountusername;
-  $topicid =$_GET['topicid'];
+  $topicid =$_POST['topicid'];
+  $image = $_FILES['image']['tmp_name'];
 
-  echo $posttext. ' '.$postusername.' '.$file.' '.$topicid;
 
-  $query = "INSERT INTO POSTS (username, textbox,topicID,postImage)
-  VALUES ( '$postusername', '$posttext','$topicid','$file')";
-  
+  $img = file_get_contents($image);
+  $id= (int)$topicid;
+
+
+  /*
+  $sql = "INSERT INTO POSTS (topicID, username, textbox,postImage)
+  VALUES ($id,'$postusername', '$posttext','$img')";
+
   if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
   } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
   }
+  */
 
   
 }
+
+
 
 
 

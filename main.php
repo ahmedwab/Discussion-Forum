@@ -1,3 +1,8 @@
+<?php
+include("config.php");
+session_start();
+error_reporting(0);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,20 +15,14 @@
 <body>
 
   <div id='topnav'>
-         <a href='/'><img id='logoIcon' src='images/discussion-icon.png'>Discussion Forum</a>
+         <a href='main.php'><img id='logoIcon' src='images/discussion-icon.png'>Discussion Forum</a>
          <div id='topnav-right'>
             <button id="newTopic" onclick="openPop()"> Start new topic </button>
 
 
 <?php
-session_start();
-error_reporting(0);
-$servername = "mysql.discussionthreads.online";
-$username = "ahmedwab";
-$password = "discussion1407";
-$databaseName = "discussionthreads_discussion";
 
- $conn = new mysqli($servername,$username,$password,$databaseName);
+
 
  if ($_SESSION["user"] == NULL)
  {

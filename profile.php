@@ -1,3 +1,8 @@
+<?php
+include("config.php");
+session_start();
+error_reporting(0);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,14 +21,8 @@
 
 
 <?php
-session_start();
-error_reporting(0);
-$servername = "mysql.discussionthreads.online";
-$username = "ahmedwab";
-$password = "discussion1407";
-$databaseName = "discussionthreads_discussion";
 
-$conn = new mysqli($servername, $username, $password, $databaseName);
+
 
 if ($_SESSION["user"] == NULL)
 {
@@ -58,7 +57,7 @@ else
   $userprofile =$_GET['user'];
 
   if($userprofile ==$accountusername){
-    echo "<a href='destroy.php'> Sign Out</a>";
+    echo "<a id='signOut'href='destroy.php'> Sign Out</a>";
   }
 
   echo '</div>
@@ -99,6 +98,7 @@ else
 $query = "SELECT * FROM ACCOUNTS A, POSTS P,TOPIC T 
 WHERE A.username = P.username
 AND T.TopicID = P.TopicID
+AND A.username = '$userprofile'
 ORDER BY created_at DESC";
 $result = mysqli_query($conn, $query);
 while ($row = mysqli_fetch_array($result))

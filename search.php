@@ -1,3 +1,8 @@
+<?php
+include("config.php");
+session_start();
+error_reporting(0);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,14 +21,7 @@
 
 
 <?php
-session_start();
-error_reporting(0);
-$servername = "mysql.discussionthreads.online";
-$username = "ahmedwab";
-$password = "discussion1407";
-$databaseName = "discussionthreads_discussion";
 
- $conn = new mysqli($servername,$username,$password,$databaseName);
 
  if ($_SESSION["user"] == NULL)
  {
